@@ -1,0 +1,5629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Universe Chose You 🤍</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Poppins:wght@300;400;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Italiana&family=Jost:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Poppins:wght@300;400;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Italiana&family=Jost:wght@300;400;500&display=swap"></noscript>
+
+<style>
+:root{
+--void:        #08081a;   /* deep space background */
+--midnight:    #12122c;   /* panel background, one step up from void */
+--midnight-2:  #1a1a3a;   /* panel border/edge tone */
+--champagne:   #e8c88a;   /* warm gold — her light */
+--champagne-soft: #cbaf7c;
+--rosequartz:  #dba9ae;   /* soft warmth accent */
+--violet-glow: #8b7ab0;   /* secondary cool accent */
+--starlight:   #f4f0e6;   /* primary light text */
+--starlight-dim: #a8a4c0; /* secondary/quiet text */
+--line: rgba(232,200,138,0.22);
+--display: 'Italiana', serif;          /* Small Things page title */
+--script:  'Cormorant Garamond', serif; /* Small Things diary text */
+--body:    'Jost', sans-serif;          /* Small Things labels/back link */
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;   /* removes the blue flash on tap (touch-only, no effect on desktop clicks) */
+}
+
+button,
+a,
+[onclick]{
+-webkit-tap-highlight-color:transparent;
+-webkit-touch-callout:none;                /* stops the long-press selection/callout menu on touch */
+}
+
+html,body{
+width:100%;
+height:100%;
+font-family:Poppins,sans-serif;
+background:#020617;
+color:white;
+overflow:hidden;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0;
+display:none;               /* hidden by default */
+}
+
+#stars{
+display:block;              /* always in the render tree so opacity can transition smoothly */
+opacity:0;
+pointer-events:none;
+transition:opacity .6s ease;
+}
+
+body.nebula-active #stars{
+opacity:1;                  /* shown only when body has this class */
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#ffffff10,transparent 40%),
+linear-gradient(to bottom,#020617,#000814);
+background-size:200% 200%;
+animation:nebulaShift 22s ease-in-out infinite;
+z-index:0;
+pointer-events:none;
+transition:opacity .6s ease;
+}
+
+body.nebula-active .overlay{
+opacity:0;                  /* fades out the plain gradient so the canvas shows through */
+}
+
+body.cake-active .overlay{
+background:none;            /* removes the linear/radial gradient background on the cake page, but leaves #birthdayScene::before's centre glow untouched */
+}
+
+body.vault-active .overlay{
+background:none;            /* removes the linear/radial gradient background on the vault and its folder pages (story/videos/memories) */
+}
+
+body.gallery-active .overlay{
+background:
+radial-gradient(circle at top,#ffffff10,transparent 40%),
+linear-gradient(to bottom,#020617,#000814);   /* photos page only */
+}
+
+@keyframes nebulaShift{
+0%,100%{background-position:0% 0%;}
+50%{background-position:100% 100%;}
+}
+
+/* ---------- PREMIUM ATMOSPHERE LAYERS ---------- */
+.grain{
+position:fixed;
+inset:0;
+z-index:-1;
+pointer-events:none;
+opacity:.05;
+mix-blend-mode:overlay;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.vignette{
+position:fixed;
+inset:0;
+z-index:-1;
+pointer-events:none;
+background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.6) 100%);
+}
+
+.aurora{
+position:fixed;
+inset:0;
+z-index:-2;
+pointer-events:none;
+overflow:hidden;
+transition:opacity 1s ease;
+}
+.blob{
+position:absolute;
+border-radius:50%;
+filter:blur(90px);
+opacity:.32;
+animation:auroraFloat 20s ease-in-out infinite;
+}
+.blob1{
+width:420px;
+height:420px;
+background:#ff9fc8;
+top:-120px;
+left:-100px;
+}
+.blob2{
+width:400px;
+height:400px;
+background:#e0c3fc;
+bottom:-140px;
+right:-100px;
+animation-delay:-7s;
+}
+.blob3{
+width:320px;
+height:320px;
+background:#ffe89a;
+top:38%;
+left:58%;
+animation-delay:-13s;
+}
+@keyframes auroraFloat{
+0%,100%{transform:translate(0,0) scale(1);}
+50%{transform:translate(50px,-35px) scale(1.15);}
+}
+body.ambient-off .blob{
+animation-play-state:paused;
+opacity:.12;
+}
+
+::-webkit-scrollbar{
+width:8px;
+}
+::-webkit-scrollbar-track{
+background:transparent;
+}
+::-webkit-scrollbar-thumb{
+background:linear-gradient(#ff9fc8,#ffd6f7);
+border-radius:10px;
+}
+
+#intro,
+#home,
+#wordsScene,
+#moonScene,
+#letterScene,
+#galleryScene,
+#whatifScene,
+#birthdayScene,
+#finalScene,
+#vaultScene,
+#videosScene,
+#storyScene,
+#memoriesScene{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+overflow-y:auto;
+scroll-behavior:smooth;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* Inner wrapper (added by JS) that actually centers each scene's
+   content. Using auto top/bottom margins for centering — instead of
+   justify-content:center directly on the scrollable container —
+   is the classic, universally-supported way to center content that
+   sometimes overflows: auto margins simply collapse to 0 once there's
+   no extra room, so the content is never pushed off past what you
+   can scroll to, on either end. */
+.sceneInner{
+margin:auto 0;
+width:100%;
+padding:40px 0;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+#home,
+#wordsScene,
+#moonScene,
+#letterScene,
+#galleryScene,
+#whatifScene,
+#birthdayScene,
+#finalScene,
+#vaultScene,
+#videosScene,
+#storyScene,
+#memoriesScene{
+display:none;
+opacity:0;
+transition:opacity .9s ease;
+}
+
+/* login/password scene shares the same fade behavior, but its
+   fade-IN is skipped in JS (see switchScene) so it appears
+   fully opaque immediately; fade-OUT still uses this transition */
+#intro{
+display:none;
+opacity:0;
+transition:opacity .9s ease;
+}
+
+/* the vault and its folder pages (story/videos/memories) fade
+   between each other much faster — see the matching fadeOutMs/
+   fadeInDelayMs timing in switchScene() in the JS below */
+#vaultScene,
+#videosScene,
+#storyScene,
+#memoriesScene{
+transition:opacity .25s ease;
+}
+
+/* ---------- AMBIENT HEARTS ---------- */
+.ambient-heart{
+position:fixed;
+z-index:-1;
+pointer-events:none;
+opacity:.16;
+animation:driftUp linear forwards;
+}
+@keyframes driftUp{
+from{transform:translateY(0) rotate(0deg);}
+to{transform:translateY(-115vh) rotate(360deg);}
+}
+
+#backBtn{
+position:fixed;
+top:22px;
+left:22px;
+width:48px;
+height:48px;
+padding:0;
+margin-top:0;
+border-radius:50%;
+background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.04));
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,214,247,.35);
+color:white;
+font-size:20px;
+cursor:pointer;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+transition:.35s;
+animation:none;
+box-shadow:0 8px 20px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.05);
+}
+#backBtn svg{
+width:18px;
+height:18px;
+stroke:#ffe9f7;
+transition:.35s;
+filter:drop-shadow(0 0 4px rgba(255,214,247,.5));
+}
+#backBtn:hover{
+background:linear-gradient(160deg,rgba(255,214,247,.28),rgba(255,255,255,.06));
+border-color:rgba(255,214,247,.75);
+transform:translateY(-1px) scale(1.08);
+box-shadow:0 10px 26px rgba(0,0,0,.4),0 0 18px rgba(255,214,247,.45);
+}
+#backBtn:hover svg{
+transform:translateX(-2px);
+stroke:#fff;
+}
+
+#lockBtn{
+width:auto;
+height:auto;
+padding:0 0 4px 0;
+margin:0 auto 0;
+border-radius:0;
+background:none;
+backdrop-filter:none;
+border:none;
+border-bottom:1px solid #e8c88a;
+appearance:none;
+-webkit-appearance:none;
+color:#e8c88a;
+font-size:20px;
+font-weight:400;
+letter-spacing:.3px;
+line-height:1;
+cursor:pointer;
+display:none;
+transition:.4s;
+box-shadow:none;
+animation:none;
+}
+#lockBtn.visible{
+display:inline-block;
+}
+#lockBtn:hover{
+background:none;
+border-bottom-color:#f4d9a0;
+color:#f4d9a0;
+transform:none;
+box-shadow:none;
+opacity:.85;
+}
+#lockUrlHint{
+display:none;
+margin:8px auto 0;
+font-size:15px;
+font-weight:400;
+letter-spacing:0;
+color:#a8a4c0;
+text-align:center;
+}
+#lockBtn.visible+#lockUrlHint{
+display:block;
+}
+#lockBtn::before{
+content:none;
+}
+
+/* ---------- LIGHTBOX ---------- */
+.lightbox{
+position:fixed;
+inset:0;
+background:rgba(2,6,23,.75);
+backdrop-filter:blur(22px);
+-webkit-backdrop-filter:blur(22px);
+display:none;
+justify-content:center;
+align-items:center;
+gap:24px;
+z-index:60;
+cursor:zoom-out;
+padding:30px;
+}
+.lightboxContent{
+display:flex;
+flex-direction:column;
+align-items:center;
+max-width:min(90%,900px);
+cursor:default;
+}
+.lightbox img{
+max-width:100%;
+max-height:78vh;
+border-radius:14px;
+box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08);
+}
+#lightboxCaption{
+margin-top:20px;
+padding:10px 22px;
+background:rgba(230,233,240,.06);
+border:1px solid rgba(200,204,214,.14);
+border-radius:999px;
+color:#f1f2f6;
+font-size:16px;
+font-weight:600;
+text-align:center;
+max-width:600px;
+}
+.lightboxNav{
+margin:0;
+padding:0;
+background:rgba(15,17,26,.55);
+border:1px solid rgba(230,233,240,.22);
+color:#f1f2f6;
+width:48px;
+height:48px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+flex-shrink:0;
+transition:.25s ease;
+z-index:61;
+box-shadow:0 8px 24px rgba(0,0,0,.35);
+animation:none;
+overflow:visible;
+}
+.lightboxNav::before{
+content:none;
+}
+.lightboxNav:hover{
+background:rgba(230,233,240,.16);
+border-color:rgba(230,233,240,.4);
+transform:scale(1.08);
+box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+.lightboxNav svg{
+width:20px;
+height:20px;
+}
+@media (max-width:600px){
+.lightbox{
+padding:0;
+gap:0;
+}
+.lightboxNav{
+width:40px;
+height:40px;
+position:fixed;
+top:50%;
+transform:translateY(-50%);
+}
+.lightboxPrev{left:10px;}
+.lightboxNext{right:10px;}
+.lightboxNav:hover{transform:translateY(-50%) scale(1.08);}
+}
+
+.glass{
+width:90%;
+max-width:650px;
+padding:52px 46px;
+background:rgba(230,233,240,.03);
+backdrop-filter:blur(18px);
+border:1px solid rgba(200,204,214,.16);
+border-radius:28px;
+box-shadow:none;
+text-align:center;
+}
+
+.small{
+font-family:Fraunces,serif;
+letter-spacing:4px;
+font-size:14px;
+color:#d8e7ff;
+margin-bottom:15px;
+text-transform:uppercase;
+}
+
+h1{
+font-family:Cinzel,serif;
+font-size:48px;
+line-height:1.25;
+background:linear-gradient(90deg,#fff,#ffd6f7,#ffe89a);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+#intro h1{
+font-weight:500;
+line-height:1.3;
+letter-spacing:1px;
+}
+
+.introLine2{
+display:block;
+white-space:nowrap;
+font-size:clamp(20px,5.5vw,40px);
+}
+
+.subtitle{
+margin-top:18px;
+font-size:18px;
+color:#dfe7ff;
+line-height:1.7;
+}
+
+input{
+margin-top:30px;
+width:260px;
+padding:14px;
+border:none;
+border-radius:40px;
+background:#ffffff15;
+color:white;
+font-size:17px;
+text-align:center;
+outline:none;
+}
+
+input::placeholder{
+color:#ddd;
+}
+
+.passwordWrap{
+position:relative;
+display:inline-block;
+}
+
+.passwordWrap input{
+padding-left:42px;
+padding-right:42px;
+}
+
+.lockIcon{
+position:absolute;
+left:20px;
+top:50%;
+transform:translateY(calc(-50% + 15px));
+width:16px;
+height:16px;
+stroke:#e8d9c5;
+opacity:.7;
+pointer-events:none;
+}
+
+.passwordToggle{
+position:absolute;
+right:16px;
+top:50%;
+transform:translateY(calc(-50% + 15px));
+width:18px;
+height:18px;
+padding:0;
+margin-top:0;
+background:none;
+border:none;
+stroke:#e8d9c5;
+color:#e8d9c5;
+opacity:.7;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:none;
+animation:none;
+transition:none;
+}
+
+/* the site-wide button::before shine sweep and hover glow/scale
+   don't suit this small inline icon button — switch them off */
+.passwordToggle::before{
+content:none;
+}
+
+.passwordToggle:hover{
+opacity:1;
+transform:translateY(calc(-50% + 15px));
+box-shadow:none;
+}
+
+.passwordToggle svg{
+width:18px;
+height:18px;
+pointer-events:none;
+}
+
+.passwordHint{
+font-size:12px;
+color:#ffd6f7;
+opacity:.75;
+letter-spacing:.3px;
+margin-top:6px;
+margin-bottom:0;
+text-align:center;
+}
+
+/* ---------- LOGIN / PASSWORD PAGE: MOBILE-ONLY FIXES ----------
+   Desktop styles above are untouched. These overrides only apply
+   under 480px so the PC look stays exactly as it is. */
+@media (max-width:480px){
+
+/* smaller card padding so there's more room for content on
+   narrow screens */
+.glass{
+padding:36px 20px;
+}
+
+/* let long words in the heading wrap inside the card instead
+   of overflowing past its edge */
+#intro h1{
+font-size:clamp(28px,8vw,48px);
+overflow-wrap:break-word;
+word-break:break-word;
+}
+
+/* fluid password field so it always fits inside the card
+   instead of the fixed 260px desktop width */
+.passwordWrap input{
+width:100%;
+max-width:100%;
+}
+
+.passwordWrap{
+display:block;
+width:100%;
+}
+
+/* bigger tap target for the show/hide password toggle
+   (icon stays the same visual size) */
+.passwordToggle{
+width:44px;
+height:44px;
+right:2px;
+}
+
+/* the <br> between the password field and the Unlock button adds
+   its own line-height on top of the button's margin-top, making
+   the gap much bigger than intended on mobile — remove it and
+   control the gap with margin alone */
+#intro br{
+display:none;
+}
+#submitBtn{
+margin-top:14px;
+}
+
+/* a touch more breathing room between the second intro line and
+   the paragraph under it */
+.subtitle{
+margin-top:28px;
+}
+
+}
+
+button{
+margin-top:22px;
+padding:15px 38px;
+border:none;
+border-radius:40px;
+font-size:16px;
+letter-spacing:.4px;
+font-weight:600;
+cursor:pointer;
+background:linear-gradient(135deg,#f5e7c8,#e0c3fc 45%,#ffd6f7);
+color:#33223f;
+position:relative;
+overflow:hidden;
+transition:.4s;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset;
+animation:glowPulse 3s ease-in-out infinite;
+}
+
+button::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+transform:translateX(-120%);
+transition:transform .8s ease;
+}
+
+button:hover::before{
+transform:translateX(120%);
+}
+
+@keyframes glowPulse{
+0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset,0 0 0px rgba(224,195,252,0);}
+50%{box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset,0 0 22px rgba(224,195,252,.55);}
+}
+
+button:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.4) inset,0 0 28px rgba(224,195,252,.7);
+}
+
+/* ---------- PER-PAGE BUTTON THEMES ---------- */
+/* each button below keeps the same shape/lift/shine as the base
+   button, just recolored to match that page's own accent palette
+   instead of the one generic gradient everywhere */
+
+/* Welcome, Suriya — soft rosequartz-tinted glass, a quiet warm
+   accent (using the site's own --rosequartz tone) against the
+   page's plain dark navy background */
+.homeBtn{
+background:linear-gradient(160deg,rgba(219,169,174,.16),rgba(219,169,174,.04));
+backdrop-filter:blur(10px);
+color:#e8c5ca;
+border:1px solid rgba(219,169,174,.35);
+box-shadow:none;
+animation:none;
+}
+.homeBtn:hover{
+border-color:rgba(219,169,174,.6);
+background:linear-gradient(160deg,rgba(219,169,174,.24),rgba(219,169,174,.06));
+box-shadow:0 0 20px rgba(219,169,174,.25);
+}
+.homeBtn::before{
+content:none;
+}
+
+/* Moon page ("Distant for a while...") — now matches the What If
+   We Never Met page button style (lavender/pink glow) instead of
+   its own cream/crimson theme */
+#roseContinueBtn{
+background:linear-gradient(135deg,#e0c3fc,#ffd6f7 60%,#f4f1ff);
+color:#3c1f4a;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset;
+}
+#roseContinueBtn:hover{
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.4) inset,0 0 28px rgba(224,195,252,.55);
+}
+/* desktop only — slightly narrower than the site-wide default so
+   it doesn't sit with so much side gap; mobile keeps its own
+   padding rule below untouched */
+@media (min-width:481px){
+#roseContinueBtn{
+padding:15px 26px;
+}
+}
+
+/* Sorry page — quiet, muted silver-grey to match its somber tone */
+#nextBtn{
+background:linear-gradient(135deg,#e6e9f0,#c8ccd6 55%,#a8a4c0);
+color:#12122c;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.2) inset;
+}
+#nextBtn:hover{
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.3) inset,0 0 22px rgba(230,233,240,.35);
+}
+
+/* What If We Never Met — the page's own lavender/pink corner glows */
+.whatifBtn{
+background:linear-gradient(135deg,#e0c3fc,#ffd6f7 60%,#f4f1ff);
+color:#3c1f4a;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset;
+}
+.whatifBtn:hover{
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.4) inset,0 0 28px rgba(224,195,252,.55);
+}
+
+/* Our Beautiful Memories — the gallery's own silver/gold particle palette */
+.galleryBtn{
+background:linear-gradient(135deg,#c8ccd6,#e8cd7a 55%,#9aa3b5);
+color:#2c2409;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset;
+}
+.galleryBtn:hover{
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.4) inset,0 0 28px rgba(232,205,122,.5);
+}
+
+/* Happy Birthday — festive pink/gold/lavender matching the cake glow */
+.birthdayBtn{
+background:linear-gradient(135deg,#ffd8ec,#ffe89a 50%,#e0c3fc);
+color:#4a1b2f;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset;
+}
+.birthdayBtn:hover{
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.4) inset,0 0 28px rgba(255,159,200,.55);
+}
+
+/* ---------- LOGIN BUTTON (shine-sweep style) ---------- */
+#submitBtn{
+margin-top:22px;
+padding:14px 30px;
+border:none;
+border-radius:0;
+font-size:16px;
+font-weight:500;
+letter-spacing:2px;
+cursor:pointer;
+background:transparent;
+color:#f5e7c8;
+position:relative;
+overflow:hidden;
+transition:.4s;
+box-shadow:none;
+animation:none;
+}
+
+#submitBtn::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+transform:translateX(-120%);
+transition:transform .8s ease;
+}
+
+#submitBtn:hover::before{
+transform:translateX(120%);
+}
+
+#submitBtn:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 14px 34px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.15) inset,0 0 28px rgba(58,80,107,.75);
+}
+
+#submitBtn:disabled{
+opacity:.6;
+cursor:default;
+transform:none;
+box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.25) inset;
+animation:none;
+}
+
+#error{
+margin-top:18px;
+color:#ffd166;
+height:0px;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:scale(1.03);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+.fadeOut{
+animation:disappear 1.2s forwards;
+}
+
+@keyframes disappear{
+to{
+opacity:0;
+visibility:hidden;
+}
+}
+
+#enterText{
+margin-top:20px;
+font-size:22px;
+color:#ffe4f2;
+}
+
+/* ---------- WORDS SCENE ---------- */
+#wordsScene{
+text-align:center;
+}
+.wordsLabel{
+position:fixed;
+left:50%;
+top:390px;
+transform:translateX(-50%);
+font-size:14px;
+letter-spacing:4px;
+text-transform:uppercase;
+color:#d8e7ff;
+opacity:.7;
+white-space:nowrap;
+}
+#wordDisplay{
+position:fixed;
+left:50%;                     /* fallback before JS computes the real anchor on load */
+top:50%;
+transform:translateY(-50%);
+font-family:Cinzel,serif;
+font-size:clamp(34px,7vw,64px);
+display:inline-block;
+white-space:nowrap;
+}
+.wordMy{
+position:relative;
+display:inline-block;
+background:linear-gradient(90deg,#fff,#ffd6f7);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+#wordRest{
+position:absolute;         /* out of normal flow — its width no longer affects #wordDisplay's size or "My"'s position */
+left:100%;
+top:0;
+margin-left:16px;
+white-space:nowrap;
+background:linear-gradient(90deg,#ffd6f7,#ffe89a);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+opacity:0;
+transform:translateX(-6px);
+transition:opacity .55s ease,transform .55s ease;
+}
+#wordRest.show{
+opacity:1;
+transform:translateX(0);
+}
+@media (max-width:480px){
+#wordRest{
+margin-left:10px;
+}
+}
+
+/* ---------- ROSE SCENE ---------- */
+#moonScene{
+text-align:center;
+padding:30px;
+animation:fade 2s;
+}
+.moon{
+width:140px;
+height:140px;
+border-radius:50%;
+background:#fff8dc;
+box-shadow:
+0 0 40px white,
+0 0 100px #fff8dc;
+margin-bottom:40px;
+animation:moon 4s ease-in-out infinite;
+}
+@keyframes moon{
+50%{
+transform:scale(1.06);
+}
+}
+.rose{
+font-size:120px;
+margin:30px;
+animation:bloom 3s ease forwards;
+transform:scale(.2);
+filter:drop-shadow(0 0 30px crimson);
+}
+@keyframes bloom{
+100%{
+transform:scale(1);
+}
+}
+.roseTitle{
+font-size:46px;
+margin-bottom:20px;
+}
+.roseText{
+font-size:22px;
+line-height:2;
+text-align:center;
+max-width:700px;
+opacity:0;
+animation:textAppear 1.2s forwards;
+animation-delay:1.2s;
+}
+@media (max-width:480px){
+.roseText{
+font-size:19px;
+}
+#roseContinueBtn{
+padding:12px 24px;                 /* match the What If We Never Met page's mobile button size */
+font-size:14px;
+}
+}
+@keyframes textAppear{
+to{
+opacity:1;
+}
+}
+
+/* ---------- LETTER SCENE ---------- */
+#sorryBgLayer{
+position:fixed;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:0;
+}
+.sorryBgWord{
+position:absolute;
+color:rgba(255,255,255,.09);
+white-space:nowrap;
+opacity:0;
+transition:opacity 1.1s ease;
+user-select:none;
+transform:rotate(var(--baseRot,0deg));
+animation-name:sorryFloat;
+animation-timing-function:ease-in-out;
+animation-iteration-count:infinite;
+}
+@keyframes sorryFloat{
+0%,100%{transform:rotate(var(--baseRot,0deg)) translate(0,0);}
+25%{transform:rotate(var(--baseRot,0deg)) translate(4px,-9px);}
+50%{transform:rotate(var(--baseRot,0deg)) translate(0,-14px);}
+75%{transform:rotate(var(--baseRot,0deg)) translate(-4px,-7px);}
+}
+.letterBox{
+position:relative;
+z-index:1;
+width:90%;
+max-width:850px;
+max-height:80vh;
+background:rgba(255,255,255,.08);
+padding:50px 44px;
+border-radius:25px;
+box-shadow:0 25px 60px rgba(0,0,0,.45);
+overflow-y:auto;
+}
+.letterBox h1{
+font-family:'Courier Prime',monospace;
+}
+#typewriter{
+margin-top:30px;
+font-size:21px;
+line-height:2;
+white-space:pre-wrap;
+min-height:420px;
+font-family:'Courier Prime',monospace;
+}
+#nextBtn{
+visibility:hidden;
+margin-top:35px;
+}
+@media (max-width:480px){
+.letterBox{
+padding:40px 20px;
+}
+.letterBox h1{
+font-size:clamp(28px,8vw,48px) !important;
+gap:0.2em !important;
+justify-content:center !important;
+}
+.letterBox h1 svg{
+width:44px !important;
+height:44px !important;
+min-width:44px !important;
+min-height:44px !important;
+}
+.letterBox h1 span span{
+font-size:clamp(28px,8vw,48px) !important;
+}
+#typewriter{
+font-size:clamp(15px,4vw,21px);
+line-height:1.8;
+min-height:260px;
+}
+#nextBtn{
+padding:12px 24px;                 /* match the What If We Never Met page's mobile button size */
+font-size:14px;
+}
+}
+
+/* ---------- GALLERY SCENE ---------- */
+#galleryScene{
+padding:30px;
+}
+.galleryTitle{
+font-size:50px;
+margin-bottom:10px;
+text-align:center;
+}
+.gallerySub{
+font-size:20px;
+margin-bottom:35px;
+color:#c8ccd6;
+text-align:center;
+}
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+width:95%;
+max-width:1200px;
+}
+.photo{
+background:rgba(230,233,240,.04);
+border:1px solid rgba(200,204,214,.16);
+padding:12px;
+border-radius:2px;
+box-shadow:none;
+transform:rotate(calc(-1.5deg + 3deg * var(--r)));
+animation:floatPhoto 5s ease-in-out infinite;
+transition:.4s;
+cursor:zoom-in;
+}
+.photo:nth-child(1){--r:.1;}
+.photo:nth-child(2){--r:.5;}
+.photo:nth-child(3){--r:.8;}
+.photo:nth-child(4){--r:.3;}
+.photo:nth-child(5){--r:.7;}
+.photo:nth-child(6){--r:.2;}
+.photo:hover{
+transform:scale(1.06) rotate(0deg);
+}
+@media (min-width:601px){
+.gallery{
+grid-template-columns:repeat(4,1fr);
+}
+.photo:nth-child(5){
+grid-column:2/3;
+}
+.photo:nth-child(6){
+grid-column:3/4;
+}
+}
+.photo img{
+width:100%;
+height:260px;
+object-fit:cover;
+border-radius:10px;
+position:relative;
+isolation:isolate;
+}
+.photo p{
+margin-top:12px;
+text-align:center;
+color:#c8ccd6;
+font-size:16px;
+font-weight:600;
+}
+.photo video{
+width:100%;
+height:260px;
+object-fit:cover;
+border-radius:10px;
+background:#000;
+position:relative;
+isolation:isolate;
+}
+@keyframes floatPhoto{
+50%{
+transform:translateY(-10px);
+}
+}
+@media (max-width:480px){
+#galleryScene{
+padding-top:90px;
+}
+.galleryTitle{
+font-size:clamp(28px,8vw,50px);
+}
+.gallerySub{
+font-size:clamp(15px,4vw,20px);
+}
+#galleryScene button{
+padding:12px 24px;
+font-size:14px;
+}
+}
+
+/* ---------- VAULT SCENE (keepsake desk redesign) ---------- */
+#vaultScene,
+#storyScene,
+#videosScene,
+#memoriesScene{
+text-align:center;
+padding:40px 20px;
+position:relative;
+z-index:3;
+}
+
+.keptTitle{
+font-family:Fraunces,serif;
+font-size:34px;
+font-weight:300;
+letter-spacing:6px;
+text-transform:uppercase;
+color:#e6e9f0;
+}
+.keptChapter{
+font-family:Fraunces,serif;
+font-size:15px;
+font-weight:500;
+letter-spacing:5px;
+text-transform:uppercase;
+color:#c8ccd6;
+margin-bottom:6px;
+}
+.keptRule{
+display:flex;
+align-items:center;
+gap:10px;
+margin:20px auto 8px;
+width:200px;
+}
+.keptRule::before,
+.keptRule::after{
+content:"";
+flex:1;
+height:1px;
+background:linear-gradient(90deg,transparent,#9aa3b5aa);
+}
+.keptRule::after{
+background:linear-gradient(90deg,#9aa3b5aa,transparent);
+}
+.keptRule span{
+width:4px;
+height:4px;
+border-radius:50%;
+background:#c8ccd6;
+box-shadow:none;
+}
+.keptNote{
+margin-top:16px;
+font-family:'Crimson Pro',serif;
+font-style:italic;
+font-size:22px;
+color:#9099ab;
+max-width:440px;
+line-height:1.6;
+}
+.vaultNote{
+position:fixed;
+left:0;
+right:0;
+bottom:18px;
+font-size:13px;
+color:#9099ab;
+opacity:.6;
+letter-spacing:.3px;
+text-align:center;
+z-index:5;
+pointer-events:none;
+}
+
+/* ---------- TABLE OF KEEPSAKES ---------- */
+.keptTable{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+align-items:flex-start;
+gap:64px;
+margin-top:56px;
+max-width:660px;
+}
+.keepsake{
+position:relative;
+cursor:pointer;
+background:none;
+border:none;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:18px;
+margin-top:0;
+box-shadow:none;
+animation:none;
+transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.keepsake::before{
+content:"";
+position:absolute;
+inset:-6px;
+border-radius:50%;
+background:radial-gradient(circle,rgba(154,163,181,.3),transparent 70%);
+opacity:0;
+transition:opacity .45s ease;
+z-index:-1;
+}
+.keepsake:hover{
+transform:translateY(-8px);
+}
+.keepsake:hover::before{
+opacity:1;
+}
+.keepsake svg{
+width:92px;
+height:92px;
+overflow:visible;
+}
+.keepsake .label{
+margin-top:18px;
+font-family:Fraunces,serif;
+font-size:12px;
+font-weight:500;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#9aa3b5;
+}
+
+/* ---------- VAULT SIDE LINKS (Welcome page + yearly birthday links) ---------- */
+/* stacks any number of these vertically in the top-right corner —
+   to add another year, just drop one more .vaultSideLink button
+   inside #vaultSideLinks; the container handles the spacing */
+#vaultSideLinks{
+position:fixed;
+top:22px;
+right:22px;
+z-index:9999;
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:10px;
+}
+.vaultSideLink{
+font-family:Fraunces,serif;
+font-size:11px;
+font-weight:500;
+letter-spacing:2px;
+text-transform:uppercase;
+color:#dfe2ea;
+background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+backdrop-filter:blur(14px);
+border:1px solid rgba(200,204,214,.3);
+border-radius:20px;
+padding:10px 18px;
+cursor:pointer;
+box-shadow:none;
+animation:none;
+transition:.35s;
+white-space:nowrap;
+}
+.vaultSideLink:hover{
+border-color:#c8ccd6;
+background:rgba(230,233,240,.08);
+transform:translateY(-1px);
+}
+@media (max-width:480px){
+#vaultSideLinks{
+top:calc(16px + env(safe-area-inset-top));
+right:calc(16px + env(safe-area-inset-right));
+gap:8px;
+}
+.vaultSideLink{
+font-size:10px;
+padding:8px 14px;
+}
+.vaultSideLink:active{
+border-color:#c8ccd6;
+background:rgba(230,233,240,.08);
+transform:translateY(-1px);
+}
+.keptTitle{
+font-size:22px;
+letter-spacing:3px;
+}
+.keptNote{
+font-size:18px;
+max-width:280px;
+}
+.keptTable{
+gap:28px;
+margin-top:40px;
+}
+.keepsake:active{
+transform:translateY(-8px);
+}
+.keepsake:active::before{
+opacity:1;
+}
+#vaultScene .sceneInner{
+padding-bottom:64px;
+}
+.vaultNote{
+bottom:calc(18px + env(safe-area-inset-bottom));
+padding:0 16px;
+}
+}
+
+
+/* ---------- BACK LINK ---------- */
+.keptBack{
+margin-top:46px;
+font-family:Fraunces,serif;
+font-weight:400;
+font-size:12px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#dfe2ea;
+background:transparent;
+border:1px solid rgba(200,204,214,.35);
+border-radius:2px;
+cursor:pointer;
+padding:13px 30px;
+box-shadow:none;
+animation:none;
+transition:.35s;
+}
+.keptBack::before{
+content:none;
+}
+.keptBack:hover{
+border-color:#c8ccd6;
+background:rgba(230,233,240,.06);
+}
+.diaryBox + .keptBack{
+margin-top:18px;   /* tighter gap under the Our Story dot/arrow row specifically */
+}
+
+/* ---------- STORY / MEMORIES SCENES (keepsake card) ---------- */
+.storyBox{
+width:92%;
+max-width:560px;
+background:rgba(230,233,240,.03);
+backdrop-filter:blur(18px);
+border:1px solid rgba(200,204,214,.16);
+padding:52px 46px;
+margin-top:14px;
+border-radius:2px;
+box-shadow:none;
+font-family:'Crimson Pro',serif;
+font-size:21px;
+font-weight:300;
+line-height:1.9;
+text-align:center;
+white-space:pre-line;
+color:#dfe2ea;
+}
+.diaryBox{
+max-width:820px;
+padding:56px 64px;
+}
+@media (max-width:900px){
+.diaryBox{
+padding:44px 30px;
+}
+}
+
+/* ---------- DIARY PAGES (Our Story pagination) ---------- */
+.diaryBox{
+display:flex;
+flex-direction:column;
+align-items:center;
+position:relative;
+}
+.diaryPages{
+width:100%;
+position:relative;
+}
+.diaryPage{
+display:none;
+width:100%;
+text-align:left;
+}
+.diaryPageText{
+margin:0 0 1.9em 0;
+white-space:pre-line;
+text-indent:3.5em;
+}
+.diaryPageText:last-child{
+margin-bottom:0;
+}
+.diaryPageText.noIndent{
+text-indent:0;
+}
+.diaryPage.active{
+display:flex;
+flex-direction:column;
+animation:diaryPageIn .55s ease;
+}
+@keyframes diaryPageIn{
+from{opacity:0;transform:translateY(6px);}
+to{opacity:1;transform:translateY(0);}
+}
+.diaryCorner{
+display:block;
+font-family:Fraunces,serif;
+font-size:11px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#9099ab;
+margin-bottom:18px;
+opacity:.75;
+text-align:left;
+}
+.diaryFooter{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:14px;
+margin-top:20px;
+width:100%;
+}
+/* prev/next arrows are pulled out of the centered footer row and
+   anchored to the bottom-right corner of the diary card, at a
+   larger tap-friendly size */
+.diaryArrowsCorner{
+position:absolute;
+right:14px;
+bottom:14px;
+display:flex;
+align-items:center;
+gap:10px;
+z-index:2;
+}
+.diaryArrowBtn{
+width:44px;
+height:44px;
+flex-shrink:0;
+border-radius:50%;
+border:1px solid rgba(200,204,214,.35);
+background:rgba(8,8,26,.55);
+color:#dfe2ea;
+font-size:20px;
+line-height:1;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+padding:0;
+transition:.3s;
+margin-top:0;
+box-shadow:none;
+animation:none;
+}
+/* the site-wide button::before shine sweep doesn't suit these small
+   circular icon buttons — switch it off just here */
+.diaryArrowBtn::before{
+content:none;
+}
+.diaryArrowBtn:hover:not(:disabled){
+border-color:#c8ccd6;
+background:rgba(230,233,240,.1);
+transform:none;
+box-shadow:none;
+}
+.diaryArrowBtn:disabled{
+opacity:.25;
+cursor:default;
+}
+.diaryArrowsTop{
+position:absolute;
+right:14px;
+top:14px;
+display:flex;
+align-items:center;
+gap:10px;
+z-index:2;
+}
+.diaryDotsTop{
+margin-bottom:38px;
+}
+.diaryDots{
+display:flex;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+row-gap:8px;
+gap:8px;
+max-width:100%;
+}
+.diaryDot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:rgba(200,204,214,.35);
+cursor:pointer;
+padding:0;
+border:none;
+transition:.3s;
+flex-shrink:0;
+margin-top:0;
+box-shadow:none;
+animation:none;
+}
+.diaryDot:hover{
+transform:none;
+box-shadow:none;
+}
+.diaryDot.active{
+background:#dfe2ea;
+width:8px;
+height:8px;
+box-shadow:none;
+}
+@media (max-width:480px){
+.diaryFooter{gap:10px;}
+/* on mobile the prev/next arrows move out of the corners and into
+   their own right-aligned row: one row above the top dot row, one
+   row below the bottom dot row. This is done with flex 'order' and
+   'align-self' on the existing elements (no markup changes) so the
+   dots never need to share horizontal space with the arrows and can
+   stay perfectly centered regardless of how many pages there are. */
+.diaryArrowsTop{
+position:static;
+align-self:flex-end;
+margin-bottom:14px;
+gap:8px;
+order:1;
+}
+.diaryDotsTop{
+order:2;
+}
+.diaryPages{
+order:3;
+/* tells the browser "vertical scrolling is still fine here, but
+   don't assume every touch-drag is a scroll" — without this, a
+   swipe with even a slight vertical wobble gets claimed by the
+   browser as a scroll gesture, which fires touchcancel instead of
+   touchend and silently breaks the swipe-to-turn-page handler */
+touch-action:pan-y;
+}
+.diaryFooter{
+order:4;
+}
+.diaryArrowsCorner{
+position:static;
+align-self:flex-end;
+margin-top:14px;
+gap:8px;
+order:5;
+}
+.diaryArrowBtn{width:38px;height:38px;font-size:17px;}
+.diaryArrowBtn:active:not(:disabled){
+border-color:#c8ccd6;
+background:rgba(230,233,240,.1);
+}
+.diaryBox{
+width:96%;
+padding:32px 18px;
+}
+.storyBox{
+font-size:17px;
+line-height:1.75;
+backdrop-filter:blur(11px);
+}
+.diaryCorner{
+margin-bottom:12px;
+}
+.diaryPageText{
+text-indent:1.6em;
+}
+/* enlarges the tappable area around each dot using an invisible
+   ::after that sits outside the dot's own box — this keeps the dot
+   itself the original 6px/8px size and keeps the row's gap exactly
+   as designed, instead of inflating the dot's box (which is what
+   made the row look oddly spread out before) */
+.diaryDot{
+position:relative;
+}
+.diaryDot::after{
+content:"";
+position:absolute;
+inset:-9px;
+}
+.diaryDot:active{
+transform:scale(1.5);
+}
+/* clearer "which page am I on" cue on small screens: a soft ring
+   around the current dot instead of relying only on the 2px size
+   difference */
+.diaryDot.active{
+box-shadow:0 0 0 3px rgba(223,226,234,.28);
+}
+}
+
+/* ---------- SMALL THINGS PAGE ("stars worth naming" timeline) ---------- */
+#memoriesScene{
+padding:60px 20px;
+}
+#memoriesScene .keptRule{
+display:none;
+}
+.skyWrap{
+width:92%;
+max-width:1180px;
+margin:0 auto;
+position:relative;
+z-index:1;
+}
+.skyEyebrow{
+display:flex;
+align-items:center;
+gap:12px;
+font-family:var(--body);
+font-size:12px;
+font-weight:400;
+letter-spacing:4px;
+text-transform:uppercase;
+color:var(--champagne-soft);
+margin-bottom:20px;
+}
+.skyEyebrow::before{
+content:"";
+width:28px;
+height:1px;
+background:var(--champagne-soft);
+opacity:.8;
+}
+.skyTitle{
+font-family:var(--display);
+font-weight:400;
+font-size:clamp(38px,5.5vw,64px);
+letter-spacing:.5px;
+text-transform:none;
+color:var(--starlight);
+text-align:left;
+margin-bottom:64px;
+text-shadow:0 0 24px rgba(232,200,138,.12);
+}
+.skyTimeline{
+position:relative;
+}
+.skyTimeline::before{
+content:"";
+position:absolute;
+top:6px;
+bottom:6px;
+left:50%;
+width:1px;
+transform:translateX(-50%);
+background:linear-gradient(to bottom,transparent,var(--champagne-soft) 6%,var(--champagne-soft) 94%,transparent);
+opacity:.4;
+}
+.timelineRow{
+display:grid;
+grid-template-columns:1fr 32px 1fr;
+align-items:start;
+position:relative;
+margin-bottom:76px;
+}
+.timelineRow:last-child{
+margin-bottom:0;
+}
+.timelineDot{
+grid-column:2;
+justify-self:center;
+margin-top:6px;
+width:9px;
+height:9px;
+border-radius:50%;
+background:var(--champagne);
+box-shadow:0 0 10px rgba(232,200,138,.75),0 0 0 5px rgba(232,200,138,.12);
+position:relative;
+z-index:2;
+}
+.timelineContent{
+grid-column:1;
+text-align:right;
+padding-right:36px;
+}
+.timelineRow:nth-child(even) .timelineContent{
+grid-column:3;
+text-align:left;
+padding-right:0;
+padding-left:36px;
+}
+.timelineTitle{
+font-family:var(--display);
+font-weight:400;
+font-size:26px;
+letter-spacing:.5px;
+color:var(--starlight);
+margin-bottom:12px;
+}
+.timelineText{
+font-family:var(--body);
+font-weight:300;
+font-size:15.5px;
+line-height:1.85;
+color:var(--starlight-dim);
+white-space:pre-line;
+max-width:480px;
+display:inline-block;
+}
+.timelineRow:nth-child(odd) .timelineText{
+margin-left:auto;
+}
+.skyBack{
+display:block;
+margin:70px auto 0;
+font-family:var(--body);
+letter-spacing:3px;
+color:var(--starlight-dim);
+border-color:var(--line);
+}
+.skyBack:hover{
+border-color:var(--champagne);
+background:rgba(232,200,138,.08);
+color:var(--starlight);
+}
+
+@media(max-width:760px){
+#memoriesScene{
+padding:40px 14px 40px 26px;       /* mobile: extra left margin so the timeline isn't flush against the screen edge */
+}
+.skyWrap{
+width:100%;                        /* mobile remedy 2: reclaim the width lost to PC's 92% + outer padding */
+}
+.skyEyebrow{
+margin-bottom:16px;
+}
+.skyTitle{
+font-size:clamp(30px,8vw,40px);    /* mobile remedy 5: lower floor than PC's 38px so it never feels cramped */
+margin-bottom:40px;                /* mobile remedy 4: tighter rhythm than PC's 64px */
+}
+.timelineRow{
+grid-template-columns:24px 1fr;
+column-gap:18px;
+margin-bottom:52px;                /* mobile remedy 4: tighter than PC's 76px */
+}
+.timelineDot{
+grid-column:1;
+justify-self:center;               /* fix: was "start", which pulled the dot off the line at left:12px */
+margin-top:8px;
+}
+.timelineContent,
+.timelineRow:nth-child(even) .timelineContent{
+grid-column:2;
+text-align:left;
+padding-left:0;
+padding-right:0;
+}
+.timelineText,
+.timelineRow:nth-child(odd) .timelineText{
+margin-left:0;
+max-width:100%;
+display:block;
+line-height:2;                     /* mobile remedy 1: more breathing room than PC's 1.85 */
+font-size:16px;                    /* mobile remedy 1: slightly larger than PC's 15.5px */
+}
+.skyTimeline::before{
+left:12px;                         /* matches the dot's now-centered position in its 24px column */
+}
+.skyTitle{
+text-align:left;
+}
+
+/* mobile remedy 1: collapse/expand for long diary entries (JS adds .tt-clamped/.tt-expanded) */
+.timelineText.tt-clamped{
+max-height:260px;
+overflow:hidden;
+-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 100%);
+mask-image:linear-gradient(to bottom,#000 72%,transparent 100%);
+}
+.timelineText.tt-expanded{
+max-height:none;
+-webkit-mask-image:none;
+mask-image:none;
+}
+.tt-toggle{
+display:inline-block;
+margin-top:10px;
+font-family:var(--body);
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--champagne-soft);
+background:transparent;
+border:none;
+padding:6px 0;
+cursor:pointer;
+}
+.tt-toggle:active{
+color:var(--champagne);
+}
+
+/* mobile remedy 3: visible tap feedback on the back button (PC keeps hover-only) */
+.skyBack:active{
+border-color:var(--champagne);
+background:rgba(232,200,138,.12);
+color:var(--starlight);
+}
+}
+
+
+/* ---------- LITTLE FILMS (cinematic carousel/grid) ---------- */
+#videosScene .filmEyebrow{
+font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#8f89b8;margin-bottom:4px;
+}
+#videosScene .filmNote{
+margin-top:0;
+margin-bottom:36px;
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+color:#9099ab;
+font-size:18px;
+}
+.viewToggle{
+position:fixed;
+top:26px;
+right:26px;
+width:44px;height:44px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(200,204,214,.3);
+border-radius:50%;
+cursor:pointer;
+transition:.3s;
+z-index:10;
+}
+.viewToggle:hover{
+background:rgba(200,204,214,.15);
+border-color:#c8ccd6;
+}
+.viewToggle svg{
+width:19px;height:19px;
+stroke:#e7e4f0;
+transition:.3s;
+}
+@media (max-width:480px){
+/* on notch/Dynamic-Island phones, keep this clear of the status bar —
+   same env(safe-area-inset) pattern already used for #vaultSideLinks
+   and .vaultNote elsewhere in this file */
+.viewToggle{
+top:calc(26px + env(safe-area-inset-top));
+right:calc(26px + env(safe-area-inset-right));
+}
+}
+.view{
+display:none;
+width:100%;
+}
+.view.active{
+display:block;
+}
+.carousel{
+position:relative;
+width:min(640px,90vw);
+margin:0 auto;
+}
+.slides{
+position:relative;
+border-radius:4px;
+overflow:hidden;
+box-shadow:0 0 0 1px rgba(200,204,214,.2), 0 30px 70px -20px rgba(0,0,0,.55);
+background:#000;
+}
+.slide{
+display:none;
+}
+.slide.active{
+display:block;
+}
+.slide video,
+.slide iframe{
+width:100%;
+aspect-ratio:16/9;
+object-fit:cover;
+display:block;
+border:none;
+}
+.slide p{
+padding:16px 20px 20px;
+text-align:left;
+font-style:italic;
+color:#c8ccd6;
+font-size:16px;
+background:linear-gradient(180deg,rgba(0,0,0,.0),rgba(10,8,20,.9));
+}
+.dots{
+display:flex;
+gap:10px;
+justify-content:center;
+margin-top:22px;
+}
+.dot{
+width:8px;height:8px;border-radius:50%;
+background:#494c58;
+cursor:pointer;
+transition:.3s;
+}
+.dot.active{
+background:#c8ccd6;
+box-shadow:0 0 10px rgba(200,204,214,.55);
+}
+.arrow{
+position:absolute;
+top:50%;transform:translateY(-50%);
+background:rgba(255,255,255,.06);
+border:1px solid rgba(200,204,214,.3);
+color:#e7e4f0;
+width:40px;height:40px;
+border-radius:50%;
+cursor:pointer;
+font-size:18px;
+display:flex;align-items:center;justify-content:center;
+transition:.3s;
+}
+.arrow:hover{
+background:rgba(200,204,214,.2);
+}
+.arrow.left{left:-54px;}
+.arrow.right{right:-54px;}
+/* MOBILE ONLY: matches the filmIsMobile threshold used everywhere else
+   in the videos scene (JS real-aspect-ratio logic below, and the grid
+   breakpoint further down). Prev/next used to overlay the left/right
+   edges of the video itself — on mobile that put them right on top of
+   the clip (.arrow sits earlier in the markup than .slides, so with
+   equal stacking .slides painted over it, hiding it and swallowing its
+   taps) and deep in the iOS/Android edge-swipe-back gesture zone.
+   Moving them into their own row below the video sidesteps both
+   problems. .arrow.left/.right and .dots are already direct siblings
+   of .slides inside .carousel, so this is done with CSS Grid areas on
+   the existing markup — no HTML changes needed. Desktop keeps the
+   original overlay-on-the-video layout, completely untouched. */
+@media(max-width:760px){
+.carousel{
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-template-areas:
+"slides slides"
+"navleft navright"
+"dots dots";
+row-gap:16px;
+}
+.slides{grid-area:slides;}
+.arrow{position:static;transform:none;}
+.arrow.left{grid-area:navleft;justify-self:end;margin-right:10px;}
+.arrow.right{grid-area:navright;justify-self:start;margin-left:10px;}
+.dots{grid-area:dots;margin-top:0;}
+/* dots stay the same small size visually, but get an invisible
+   ~32px tap zone centered on them — 8px is well under the ~44px
+   minimum touch target size, so mis-taps were common on phones */
+.dot{position:relative;}
+.dot::before{
+content:'';
+position:absolute;
+top:50%;left:50%;
+width:32px;height:32px;
+transform:translate(-50%,-50%);
+}
+/* tells the browser "vertical scrolling is still fine here, but don't
+   assume every touch-drag is a scroll" — without this, a swipe with
+   even a slight vertical wobble gets claimed by the browser as a
+   scroll gesture, which fires touchcancel instead of touchend and
+   silently breaks the swipe-to-change-clip handler below (same fix
+   already applied to the "Our Story" diary swipe elsewhere in this
+   file). Desktop never swipes, so this is scoped to mobile only. */
+.slides{touch-action:pan-y;}
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:26px;
+max-width:900px;
+margin:0 auto;
+}
+.gridCard{
+border-radius:4px;
+overflow:hidden;
+background:#000;
+box-shadow:0 0 0 1px rgba(200,204,214,.15), 0 20px 40px -18px rgba(0,0,0,.5);
+transition:transform .3s ease, box-shadow .3s ease;
+}
+.gridCard:hover{
+transform:translateY(-4px);
+box-shadow:0 0 0 1px rgba(200,204,214,.4), 0 26px 50px -16px rgba(0,0,0,.55);
+}
+.gridCard video,
+.gridCard iframe{
+width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+display:block;
+border:none;
+}
+.gridCard p{
+padding:12px 14px 16px;
+text-align:left;
+font-style:italic;
+color:#c8ccd6;
+font-size:15px;
+}
+@media(max-width:900px) and (min-width:761px){
+.grid{grid-template-columns:repeat(2,1fr);max-width:640px;}
+}
+@media(max-width:760px){
+.grid{grid-template-columns:1fr;max-width:420px;}
+/* MOBILE ONLY: matches the filmIsMobile threshold in the videosScene
+   script, which sets each clip's real aspect-ratio via inline style
+   at this same breakpoint. object-fit switches to contain so that
+   real ratio shows uncropped; desktop keeps cover on the fixed
+   16:9/4:5 boxes above, untouched. */
+.slide video,
+.slide iframe,
+.gridCard video,
+.gridCard iframe{
+object-fit:contain;
+}
+}
+
+/* ---------- REASON SCENE ---------- */
+#whatifScene{
+padding:30px;
+text-align:center;
+}
+.reasonTitle{
+font-size:50px;
+margin-bottom:36px;
+}
+.reasonSub{
+font-size:20px;
+color:#ffe6f2;
+margin-top:40px;
+margin-bottom:10px;
+}
+#reasonCard{
+position:relative;
+width:90%;
+max-width:750px;
+background:rgba(255,255,255,.045);
+border-radius:25px;
+padding:50px 44px;
+box-shadow:0 25px 60px rgba(0,0,0,.45);
+overflow:hidden;
+animation:reasonCardFade 1.4s ease;
+}
+
+#reasonText{
+font-size:18px;
+line-height:1.6;
+text-align:center;
+white-space:pre-line;
+color:#f4f1ff;
+position:relative;
+z-index:1;
+}
+.reasonPoint{
+margin-bottom:0;
+}
+.reasonPoint:last-child{
+margin-bottom:0;
+}
+
+@keyframes reasonCardFade{
+from{opacity:0;transform:translateY(14px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+#whatifScene::before,
+#whatifScene::after{
+content:"";
+position:fixed;
+width:32vmax;height:32vmax;
+border-radius:50%;
+pointer-events:none;
+z-index:0;
+filter:blur(60px);
+}
+#whatifScene::before{
+top:-20%;left:-20%;
+background:rgba(224,195,252,.2);
+animation:cornerPulseA 8s ease-in-out infinite;
+}
+#whatifScene::after{
+bottom:-20%;right:-20%;
+background:rgba(255,214,247,.2);
+animation:cornerPulseB 8s ease-in-out infinite;
+}
+@keyframes cornerPulseA{
+0%,100%{opacity:.3;}
+50%{opacity:.8;}
+}
+@keyframes cornerPulseB{
+0%,100%{opacity:.8;}
+50%{opacity:.3;}
+}
+/* keep foreground content above the glow */
+#whatifScene{z-index:1;}
+#reasonCard{position:relative;z-index:1;}
+@media (max-width:480px){
+#whatifScene{
+padding-top:90px;
+}
+.reasonTitle{
+font-size:clamp(28px,8vw,50px);
+}
+#reasonCard{
+width:99%;
+padding:36px 16px;
+}
+#reasonText{
+font-size:clamp(13px,3.6vw,16px);
+}
+.reasonPoint{
+margin-bottom:14px;
+}
+.reasonPoint:last-child{
+margin-bottom:0;
+}
+.reasonSub{
+font-size:clamp(15px,4vw,20px);
+}
+#whatifScene button{
+padding:12px 24px;
+font-size:14px;
+}
+#whatifScene::before,
+#whatifScene::after{
+width:20vmax;
+height:20vmax;
+}
+}
+
+/* ---------- BIRTHDAY SCENE ---------- */
+#birthdayScene{
+text-align:center;
+padding:25px;
+}
+.birthdayTitle{
+font-size:65px;
+animation:pulse 2s infinite;
+}
+.birthdayTitle br.bdayBreak{
+display:none;
+}
+.birthdayName{
+font-family:"Cinzel",serif;
+font-optical-sizing:auto;
+font-style:normal;
+font-size:44px;
+font-weight:600;
+margin:20px;
+color:#ffd8ec;
+letter-spacing:2px;
+text-shadow:0 0 10px rgba(255,159,200,.4),0 0 22px rgba(255,159,200,.18);
+}
+.cake{
+font-size:130px;
+margin:20px;
+animation:bounceCake 7s ease-in-out infinite;
+filter:drop-shadow(0 0 30px gold);
+}
+.birthdayMessage{
+font-size:22px;
+line-height:2;
+max-width:850px;
+margin:30px auto;
+}
+@keyframes pulse{
+50%{
+transform:scale(1.05);
+}
+}
+@keyframes bounceCake{
+50%{
+transform:translateY(-12px);
+}
+}
+#birthdayScene::before{
+content:"";
+position:fixed;
+inset:0;
+background:radial-gradient(circle at 50% 40%, rgba(224,195,252,.25), transparent 60%);
+animation:breathe 6s ease-in-out infinite;
+pointer-events:none;
+z-index:0;
+}
+@keyframes breathe{
+0%,100%{opacity:.4;transform:scale(1);}
+50%{opacity:.8;transform:scale(1.15);}
+}
+.balloon{
+position:fixed;
+bottom:-150px;
+font-size:55px;
+animation:fly 10s linear forwards;
+z-index:5;
+}
+@keyframes fly{
+to{
+transform:translateY(-120vh);
+}
+}
+@media (max-width:480px){
+#birthdayScene{
+padding-top:90px;
+}
+.birthdayTitle{
+font-size:clamp(30px,9vw,65px);
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+line-height:1.15;
+}
+.birthdayTitle br.bdayBreak{
+display:inline;
+}
+.birthdayTitle .bdayEmoji{
+font-size:clamp(42px,11vw,60px);
+display:inline-block;
+}
+.birthdayTitle .bdayEmojiLeft{
+transform:scaleX(-1) rotate(-12deg);
+}
+.birthdayTitle .bdayEmojiRight{
+transform:rotate(12deg);
+}
+.birthdayName{
+font-size:clamp(28px,8vw,44px);
+}
+.cake{
+font-size:clamp(70px,22vw,130px);
+}
+.birthdayMessage{
+font-size:clamp(15px,4vw,22px);
+line-height:1.7;
+}
+.balloon{
+font-size:40px;
+}
+.birthdayBtn{
+padding:12px 24px;
+font-size:14px;
+}
+}
+.confetti{
+position:fixed;
+font-size:25px;
+animation:confettiFall 5s linear forwards;
+z-index:5;
+}
+@keyframes confettiFall{
+to{
+transform:translateY(110vh) rotate(720deg);
+}
+}
+
+/* ---------- FINAL SCENE ---------- */
+#finalScene{
+padding:60px 30px 30px;
+text-align:center;
+animation:fade 2s;
+position:relative;
+z-index:3;
+justify-content:flex-start;
+}
+.heart{
+font-size:clamp(70px,18vw,120px);
+animation:heartbeat 7s ease-in-out infinite;
+filter:drop-shadow(0 0 25px #ffffff);
+}
+@keyframes heartbeat{
+25%{
+transform:scale(1.1);
+}
+50%{
+transform:scale(.95);
+}
+75%{
+transform:scale(1.15);
+}
+}
+.finalTitle{
+font-size:clamp(32px,7vw,52px);
+margin:30px 0;
+text-align:center;
+}
+#finalText{
+max-width:850px;
+font-size:clamp(16px,3vw,24px);
+line-height:2;
+white-space:pre-wrap;
+min-height:320px;
+text-align:center;
+margin:0 auto;
+text-shadow:0 2px 12px rgba(0,0,0,.85),0 0 6px rgba(0,0,0,.7);
+}
+#signature{
+display:none;
+position:static !important;
+margin-top:8px;
+color:#ffd6ec;
+animation:fade 2s;
+text-align:center;
+width:100%;
+}
+#finalScene .sceneInner{
+padding-bottom:24px;
+}
+@media (max-width:480px){
+#finalText{
+min-height:220px;
+line-height:1.75;
+}
+#lockBtn{
+font-size:16px;
+}
+#lockUrlHint{
+font-size:13px;
+}
+}
+
+.vignette{
+position:fixed;
+inset:0;
+z-index:-1;
+pointer-events:none;
+background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.65) 100%);
+}
+
+#welcomeTitle{
+animation:welcomeFadeRise 1.4s ease forwards;
+}
+@keyframes welcomeFadeRise{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+@media (max-width:480px){
+#home{
+padding:0 20px;
+}
+#welcomeTitle{
+font-size:clamp(19px,6.2vw,48px);
+text-align:center;
+}
+#enterText{
+text-align:center;
+font-size:clamp(15px,4vw,22px);
+}
+.homeBtn{
+padding:12px 24px;                 /* match the What If We Never Met page's mobile button size */
+font-size:14px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<div class="overlay"></div>
+<div class="aurora">
+<span class="blob blob1"></span>
+<span class="blob blob2"></span>
+<span class="blob blob3"></span>
+</div>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+<button class="lightboxNav lightboxPrev" onclick="event.stopPropagation();changeLightbox(-1)" aria-label="Previous photo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+</button>
+<div class="lightboxContent" onclick="event.stopPropagation()">
+<img id="lightboxImg" src="" alt="memory preview">
+<p id="lightboxCaption"></p>
+</div>
+<button class="lightboxNav lightboxNext" onclick="event.stopPropagation();changeLightbox(1)" aria-label="Next photo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+</button>
+</div>
+
+<button id="backBtn" onclick="goBack()" aria-label="Go back">
+<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M15 6l-6 6 6 6"></path>
+</svg>
+</button>
+
+<!-- ================= HOME ================= -->
+<div id="home">
+<h1 id="welcomeTitle">
+✨ Welcome, Suriya ✨
+</h1>
+<p id="enterText">
+Some pauses are longer than expected...
+finally found a way to say hello.
+</p>
+<button class="homeBtn" onclick="goToRose()">
+Hi.. Again!
+</button>
+</div>
+
+<!-- ================= ROSE SCENE ================= -->
+<div id="moonScene">
+<canvas id="roseFXCanvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block !important;"></canvas>
+
+<script>
+const roseFxCanvas=document.getElementById("roseFXCanvas");
+const roseFxCtx=roseFxCanvas.getContext("2d");
+
+let roseFxW,roseFxH;
+function resizeRosefx(){
+roseFxW=roseFxCanvas.width=window.innerWidth;
+roseFxH=roseFxCanvas.height=window.innerHeight;
+}
+resizeRosefx();
+window.addEventListener("resize",resizeRosefx);
+
+function roseFxRand(min,max){
+return min+Math.random()*(max-min);
+}
+
+const roseFxParticles=[];
+for(let i=0;i<24;i++){
+roseFxParticles.push({
+x:roseFxRand(0,roseFxW),y:roseFxRand(0,roseFxH),
+r:roseFxRand(0.6,1.6),
+speed:roseFxRand(0.03,0.12),
+phase:roseFxRand(0,Math.PI*2)
+});
+}
+
+let roseFxTime=0;
+
+function frameRosefx(){
+
+roseFxTime+=1;
+roseFxCtx.clearRect(0,0,roseFxW,roseFxH);
+
+for(const p of roseFxParticles){
+p.y-=p.speed;
+if(p.y<-10){p.y=roseFxH+10;p.x=roseFxRand(0,roseFxW);}
+const tw=0.2+0.25*Math.sin(roseFxTime*0.02+p.phase);
+roseFxCtx.beginPath();
+roseFxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+roseFxCtx.fillStyle=`rgba(255,246,225,${tw})`;
+roseFxCtx.fill();
+}
+
+requestAnimationFrame(frameRosefx);
+
+}
+
+frameRosefx();
+</script>
+
+<div class="moon"></div>
+<h1 class="roseTitle">
+Distant for a while, yet never far...
+</h1>
+<div class="rose">
+</div>
+<p class="roseText">
+I wasn't sure how to begin after all this time...
+<br><br>
+But I couldn't let your birthday pass without saying something.
+Would I ?..
+</p>
+<button id="roseContinueBtn" onclick="showLetter()" style="visibility:hidden;">
+And Then…
+</button>
+</div>
+
+<!-- ================= LETTER SCENE ================= -->
+<div id="letterScene">
+<div class="vignette"></div>
+<div id="sorryBgLayer"></div>
+<div class="letterBox">
+<h1 style="font-size:48px; font-weight:500; color:#e6e9f0; display:flex; align-items:center; justify-content:flex-start; gap:0.3em; text-align:left; text-transform:none;">
+<svg viewBox="0 0 24 24" fill="none" stroke="#e6e9f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="72" height="72" style="width:72px; height:72px; min-width:72px; min-height:72px; flex-shrink:0; filter:drop-shadow(0 0 3px rgba(230,233,240,.28)) drop-shadow(0 0 6px rgba(230,233,240,.14));">
+<rect x="3" y="5" width="18" height="14" rx="2"></rect>
+<path d="M3 7l9 6 9-6"></path>
+</svg>
+<span>Sorry<span style="font-size:48px;">...</span></span>
+</h1>
+<div id="typewriter"></div>
+<button id="nextBtn" onclick="nextScene()">
+Continue
+</button>
+</div>
+</div>
+
+<!-- ================= GALLERY SCENE ================= -->
+<div id="galleryScene">
+<canvas id="sceneFX" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block !important;"></canvas>
+
+<script>
+const fxCanvas=document.getElementById("sceneFX");
+const fxCtx=fxCanvas.getContext("2d");
+
+let fxW,fxH;
+function resizeFX(){
+fxW=fxCanvas.width=window.innerWidth;
+fxH=fxCanvas.height=window.innerHeight;
+}
+resizeFX();
+window.addEventListener("resize",resizeFX);
+
+function fxRand(min,max){
+return min+Math.random()*(max-min);
+}
+
+function hexToRgba(hex,alpha){
+const h=hex.replace("#","");
+const r=parseInt(h.substring(0,2),16);
+const g=parseInt(h.substring(2,4),16);
+const b=parseInt(h.substring(4,6),16);
+return `rgba(${r},${g},${b},${alpha})`;
+}
+
+const fxParticles=[];
+const palette=["#c8ccd6","#e8cd7a","#9aa3b5","#ffffff"];
+for(let i=0;i<15;i++){
+fxParticles.push({
+x:fxRand(0,fxW),y:fxRand(0,fxH),
+vx:fxRand(-0.12,0.12),vy:fxRand(-0.1,0.1),
+r:fxRand(45,110),
+color:palette[i%palette.length],
+phase:fxRand(0,Math.PI*2)
+});
+}
+
+let fxTime=0;
+
+function frameFX(){
+
+fxTime+=1;
+fxCtx.clearRect(0,0,fxW,fxH);
+
+for(const p of fxParticles){
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<-p.r)p.x=fxW+p.r;
+if(p.x>fxW+p.r)p.x=-p.r;
+if(p.y<-p.r)p.y=fxH+p.r;
+if(p.y>fxH+p.r)p.y=-p.r;
+const a=0.10+0.06*Math.sin(fxTime*0.02+p.phase);
+const g=fxCtx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+g.addColorStop(0,hexToRgba(p.color,a));
+g.addColorStop(1,hexToRgba(p.color,0));
+fxCtx.fillStyle=g;
+fxCtx.beginPath();
+fxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+fxCtx.fill();
+}
+
+requestAnimationFrame(frameFX);
+
+}
+
+frameFX();
+</script>
+
+<h1 class="galleryTitle">
+📸 Our Beautiful Memories
+</h1>
+<p class="gallerySub">
+Every picture tells a story...
+</p>
+<div class="gallery">
+<div class="photo">
+<img src="images/photo1.jpg" alt="memory 1" onclick="openLightbox(0)">
+<p>The day that became unforgettable 🤍</p>
+</div>
+<div class="photo">
+<img src="images/photo2.jpg" alt="memory 2" onclick="openLightbox(1)">
+<p>Ipdi nalla pallu theriya sirichi pazhagu 😁</p>
+</div>
+<div class="photo">
+<img src="images/photo3.jpg" alt="memory 3" onclick="openLightbox(2)">
+<p>Made my day💖 but inime ipdi theva illama selavu pannatha 😑</p>
+</div>
+<div class="photo">
+<img src="images/photo4.jpg" alt="memory 4" onclick="openLightbox(3)">
+<p>Still... my favorite shirt ✨</p>
+</div>
+<div class="photo">
+<img src="images/photo5.jpg" alt="memory 5" onclick="openLightbox(4)">
+<p>Na neraiya vaati athuku aprm anga poiruken 😌</p>
+</div>
+<div class="photo">
+<img src="images/photo6.jpg" alt="memory 6" onclick="openLightbox(5)">
+<p>umm.. not a bad day</p>
+</div>
+</div>
+<button class="galleryBtn" onclick="openMemory()">
+And Finally..
+</button>
+</div>
+
+<!-- ================= REASON SCENE ================= -->
+<div id="whatifScene">
+<div class="vignette"></div>
+<h1 class="reasonTitle">
+What If We Never Met?
+</h1>
+<div id="reasonCard">
+<div id="reasonText"><div class="reasonPoint">Na oru naal full ah online varave illana next day phone open panna irukura ella app la irunthum msg vanthurukathu</div>
+<div class="reasonPoint">En birthday ku yaarum avlo effort potu ethum panruka maatanga</div>
+<div class="reasonPoint">Panruti vazhiya varen meet panlama nu call vanthurukathu.. direct ah chennai to cuddalore ku poga option irunthum.. na varuvena illayanu kuda theriyama.. enakaga yaarum vlllupuram vanthu panruti vara maatanga athum 5 mins kaga</div>
+<div class="reasonPoint">Dates like feb1, 13, 28, mar31, sep14, oct14 would not make much sense</div>
+<div class="reasonPoint">I don't know how I would have managed without you</div></div>
+</div>
+<p class="reasonSub">
+I’m really glad reality chose the better story, at least by giving me you as a friend.
+</p>
+<button class="whatifBtn" onclick="goToScene('galleryScene')">
+Next
+</button>
+</div>
+
+<!-- ================= BIRTHDAY SCENE ================= -->
+<div id="birthdayScene">
+<h1 class="birthdayTitle">
+<span class="bdayEmoji bdayEmojiLeft" aria-hidden="true">🎉</span>
+<span class="bdayText">HAPPY<br class="bdayBreak"> BIRTHDAY</span>
+<span class="bdayEmoji bdayEmojiRight" aria-hidden="true">🎉</span>
+</h1>
+<h2 class="birthdayName">
+Suriya
+</h2>
+<div class="cake">
+🎂
+</div>
+<p class="birthdayMessage">
+Always keep that smile on your face and stay happy, no matter what. Ni nenaikura ellame seekiram nadadakum. Jolly ah iru... I hope when you reach the end of this website, it gets you to smile at least once. Sorry,, I wasn't able to wish you in person or get you a present. All i want to see.. ni nalla happy ah irukanum. Ni aasa padra ellame unaku kedaikanum. Take care of yourself and enjoy your day, birthday girl😊.
+</p>
+<button class="birthdayBtn" onclick="celebrate()">
+Continue..
+</button>
+</div>
+
+<!-- ================= FINAL SCENE ================= -->
+<div id="finalScene">
+<div id="heartContainer">
+<div class="heart">
+🤍
+</div>
+</div>
+<h1 class="finalTitle">
+To My Dearest Kanmani
+</h1>
+<div id="finalText"></div>
+<div id="signature">
+</div>
+<button id="lockBtn" onclick="goToLocked()" aria-label="Go to Main site">Go to Main site</button>
+<span id="lockUrlHint">(mysuriya.vercel.app)</span>
+</div>
+
+<!-- ================= INTRO (password gate) ================= -->
+<div id="intro">
+
+<div class="glass">
+
+<div class="small">
+A PRIVATE SPACE
+</div>
+
+<h1>
+Some stories are written by fate...
+<span class="introLine2">Mine began with one "hi"</span>
+</h1>
+
+<p class="subtitle">
+This little corner of the internet will always be yours. 
+The website is just my little way of making up for the silence...
+</p>
+
+<div class="passwordHint">hint: my dream bike</div>
+<div class="passwordWrap">
+<svg class="lockIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="5" y="11" width="14" height="9" rx="2"></rect>
+<path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+</svg>
+<input
+type="password"
+id="password"
+placeholder="Password..."
+onkeydown="if(event.key==='Enter'){submitPassword();}">
+<button type="button" class="passwordToggle" id="passwordToggle" onclick="togglePasswordVisibility()" aria-label="Show password">
+<svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+<svg id="eyeOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.8 21.8 0 0 1 5.06-6.06M9.9 4.24A10.4 10.4 0 0 1 12 4c7 0 11 8 11 8a21.8 21.8 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+<line x1="1" y1="1" x2="23" y2="23"></line>
+</svg>
+</button>
+</div>
+
+<br>
+
+<button id="submitBtn" onclick="submitPassword()">[ Unlock ]</button>
+
+<div id="error"></div>
+
+</div>
+
+</div>
+
+<!-- ================= WORDS SCENE ================= -->
+<div id="wordsScene">
+<div id="wordDisplay"><span class="wordMy">My</span><span id="wordRest"></span></div>
+<audio id="wordsAudio" src="audio/my-words.mp3" preload="auto"></audio>
+</div>
+
+<!-- ================= VAULT SCENE ================= -->
+<div id="vaultScene">
+<div class="vignette"></div>
+<canvas id="vaultFXCanvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block !important;"></canvas>
+
+<div id="vaultSideLinks">
+<button class="vaultSideLink" onclick="goToWelcome()">🎉Birthday, 2026</button>
+</div>
+
+<script>
+const vaultFxCanvas=document.getElementById("vaultFXCanvas");
+const vaultFxCtx=vaultFxCanvas.getContext("2d");
+
+let vaultFxW,vaultFxH;
+function resizeVaultfx(){
+vaultFxW=vaultFxCanvas.width=window.innerWidth;
+vaultFxH=vaultFxCanvas.height=window.innerHeight;
+}
+resizeVaultfx();
+window.addEventListener("resize",resizeVaultfx);
+
+function vaultFxRand(min,max){
+return min+Math.random()*(max-min);
+}
+
+const vaultFxParticles=[];
+for(let i=0;i<24;i++){
+vaultFxParticles.push({
+x:vaultFxRand(0,vaultFxW),y:vaultFxRand(0,vaultFxH),
+r:vaultFxRand(0.6,1.6),
+speed:vaultFxRand(0.03,0.12),
+phase:vaultFxRand(0,Math.PI*2)
+});
+}
+
+let vaultFxTime=0;
+
+function frameVaultfx(){
+
+vaultFxTime+=1;
+vaultFxCtx.clearRect(0,0,vaultFxW,vaultFxH);
+
+for(const p of vaultFxParticles){
+p.y-=p.speed;
+if(p.y<-10){p.y=vaultFxH+10;p.x=vaultFxRand(0,vaultFxW);}
+const tw=0.2+0.25*Math.sin(vaultFxTime*0.02+p.phase);
+vaultFxCtx.beginPath();
+vaultFxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+vaultFxCtx.fillStyle=`rgba(255,246,225,${tw})`;
+vaultFxCtx.fill();
+}
+
+requestAnimationFrame(frameVaultfx);
+
+}
+
+frameVaultfx();
+</script>
+
+<script>
+/* ---------- MOBILE-ONLY: collapse extra yearly birthday links ----------
+   Keeps the vault's top-right link stack from growing indefinitely on
+   narrow phones as more yearly buttons get added over time. Once there
+   are more than 3 .vaultSideLink buttons, everything after the first 2
+   gets tucked behind a "More" toggle. Gated on the same max-width:480px
+   breakpoint used elsewhere in this file — desktop/tablet layouts are
+   left completely untouched, and get restored automatically if the
+   window is ever resized back up past that width. */
+(function(){
+var COLLAPSE_AFTER=3; // only kicks in once more than this many links exist
+var container=document.getElementById("vaultSideLinks");
+if(!container) return;
+
+var originalButtons=null; // captured once, in original DOM order
+var moreBtn=null;
+var dropdown=null;
+var expanded=false;
+
+function isMobile(){
+return window.matchMedia("(max-width:480px)").matches;
+}
+
+function build(){
+if(!originalButtons){
+originalButtons=Array.prototype.slice.call(
+container.querySelectorAll(".vaultSideLink")
+);
+}
+if(originalButtons.length<=COLLAPSE_AFTER) return; // nothing to collapse
+
+if(!moreBtn){
+moreBtn=document.createElement("button");
+moreBtn.type="button";
+moreBtn.className="vaultSideLink vaultMoreToggle";
+moreBtn.textContent="More ▾";
+moreBtn.setAttribute("aria-expanded","false");
+moreBtn.addEventListener("click",function(){
+expanded=!expanded;
+dropdown.style.display=expanded?"flex":"none";
+moreBtn.textContent=expanded?"Less ▴":"More ▾";
+moreBtn.setAttribute("aria-expanded",expanded?"true":"false");
+});
+}
+if(!dropdown){
+dropdown=document.createElement("div");
+dropdown.className="vaultSideLinkDropdown";
+dropdown.style.display="none";
+dropdown.style.flexDirection="column";
+dropdown.style.alignItems="flex-end";
+dropdown.style.gap="10px";
+}
+}
+
+function collapse(){
+build();
+if(originalButtons.length<=COLLAPSE_AFTER) return;
+
+var keep=originalButtons.slice(0,2);
+var rest=originalButtons.slice(2);
+
+keep.forEach(function(btn){
+if(btn.parentNode!==container) container.appendChild(btn);
+});
+rest.forEach(function(btn){
+dropdown.appendChild(btn);
+});
+container.appendChild(moreBtn);
+container.appendChild(dropdown);
+}
+
+function restore(){
+if(!originalButtons) return;
+originalButtons.forEach(function(btn){
+container.appendChild(btn);
+});
+if(moreBtn && moreBtn.parentNode) moreBtn.parentNode.removeChild(moreBtn);
+if(dropdown && dropdown.parentNode) dropdown.parentNode.removeChild(dropdown);
+expanded=false;
+}
+
+function refresh(){
+if(isMobile()) collapse();
+else restore();
+}
+
+refresh();
+window.addEventListener("resize",refresh);
+})();
+</script>
+
+
+<h1 class="keptTitle">Things I've Kept For You</h1>
+<div class="keptRule"><span></span></div>
+<p class="keptNote">Not locked away — just set aside, a place to come back to.</p>
+
+<div class="keptTable">
+
+<button class="keepsake" onclick="openStoryFolder()">
+<svg viewBox="0 0 100 100"><g fill="none" stroke="#c8ccd6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(50,50) scale(0.778) translate(-48,-48)">
+<rect x="26" y="22" width="44" height="58" rx="1"/>
+<rect x="31" y="16" width="44" height="58" rx="1"/>
+<line x1="39" y1="30" x2="69" y2="30"/>
+<line x1="39" y1="40" x2="69" y2="40"/>
+<line x1="39" y1="50" x2="58" y2="50"/>
+<path d="M29 48 C 21 52, 21 61, 29 65"/>
+</g></svg>
+<span class="label">Diary</span>
+</button>
+
+<button class="keepsake" onclick="openVideosFolder()">
+<svg viewBox="0 0 100 100"><g fill="none" stroke="#c8ccd6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(50,50) scale(1.13) translate(-50,-49)">
+<rect x="28" y="32" width="44" height="34" rx="3"/>
+<path d="M44 42 L58 49 L44 56 Z" fill="#c8ccd6" stroke="none"/>
+</g></svg>
+<span class="label">Videos</span>
+</button>
+
+<button class="keepsake" onclick="openMemoriesFolder()">
+<svg viewBox="0 0 100 100"><g fill="none" stroke="#c8ccd6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(50,50) scale(1.04) translate(-50,-52)">
+<rect x="30" y="34" width="40" height="42" rx="3"/>
+<line x1="30" y1="46" x2="70" y2="46"/>
+<line x1="40" y1="28" x2="40" y2="38"/>
+<line x1="60" y1="28" x2="60" y2="38"/>
+<circle cx="42" cy="58" r="1.6" fill="#c8ccd6" stroke="none"/>
+<circle cx="50" cy="58" r="1.6" fill="#c8ccd6" stroke="none"/>
+<circle cx="58" cy="58" r="1.6" fill="#c8ccd6" stroke="none"/>
+</g></svg>
+<span class="label">Small Things</span>
+</button>
+
+</div>
+<p class="vaultNote">Suriya.. pls don't tell anyone about this site</p>
+</div>
+
+<!-- ================= STORY SCENE ================= -->
+<div id="storyScene">
+<div class="vignette"></div>
+<canvas id="storyFXCanvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block !important;"></canvas>
+
+<script>
+const storyFxCanvas=document.getElementById("storyFXCanvas");
+const storyFxCtx=storyFxCanvas.getContext("2d");
+
+let storyFxW,storyFxH;
+function resizeStoryfx(){
+storyFxW=storyFxCanvas.width=window.innerWidth;
+storyFxH=storyFxCanvas.height=window.innerHeight;
+}
+resizeStoryfx();
+window.addEventListener("resize",resizeStoryfx);
+
+function storyFxRand(min,max){
+return min+Math.random()*(max-min);
+}
+
+const storyFxParticles=[];
+for(let i=0;i<24;i++){
+storyFxParticles.push({
+x:storyFxRand(0,storyFxW),y:storyFxRand(0,storyFxH),
+r:storyFxRand(0.6,1.6),
+speed:storyFxRand(0.03,0.12),
+phase:storyFxRand(0,Math.PI*2)
+});
+}
+
+let storyFxTime=0;
+
+function frameStoryfx(){
+
+storyFxTime+=1;
+storyFxCtx.clearRect(0,0,storyFxW,storyFxH);
+
+for(const p of storyFxParticles){
+p.y-=p.speed;
+if(p.y<-10){p.y=storyFxH+10;p.x=storyFxRand(0,storyFxW);}
+const tw=0.2+0.25*Math.sin(storyFxTime*0.02+p.phase);
+storyFxCtx.beginPath();
+storyFxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+storyFxCtx.fillStyle=`rgba(255,246,225,${tw})`;
+storyFxCtx.fill();
+}
+
+requestAnimationFrame(frameStoryfx);
+
+}
+
+frameStoryfx();
+</script>
+
+
+<h2 class="keptChapter">Diary</h2>
+<div class="keptRule"><span></span></div>
+<div class="storyBox diaryBox">
+<div class="diaryDots diaryDotsTop" id="storyDiaryDotsTop"></div>
+<div class="diaryArrowsTop">
+<button class="diaryArrowBtn diaryArrowPrev" onclick="storyDiaryNav(-1)" disabled aria-label="Previous page">‹</button>
+<button class="diaryArrowBtn diaryArrowNext" onclick="storyDiaryNav(1)" aria-label="Next page">›</button>
+</div>
+<div class="diaryPages" id="storyDiaryPages"></div>
+<div class="diaryFooter">
+<div class="diaryDots" id="storyDiaryDots"></div>
+</div>
+<div class="diaryArrowsCorner">
+<button class="diaryArrowBtn diaryArrowPrev" onclick="storyDiaryNav(-1)" disabled aria-label="Previous page">‹</button>
+<button class="diaryArrowBtn diaryArrowNext" onclick="storyDiaryNav(1)" aria-label="Next page">›</button>
+</div>
+</div>
+<button class="keptBack" onclick="backToVault()">← Back To Home</button>
+</div>
+
+<!-- ================= VIDEOS SCENE ================= -->
+<div id="videosScene">
+<div class="vignette"></div>
+<canvas id="videosFXCanvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block !important;"></canvas>
+
+<script>
+const videosFxCanvas=document.getElementById("videosFXCanvas");
+const videosFxCtx=videosFxCanvas.getContext("2d");
+
+let videosFxW,videosFxH;
+function resizeVideosfx(){
+videosFxW=videosFxCanvas.width=window.innerWidth;
+videosFxH=videosFxCanvas.height=window.innerHeight;
+}
+resizeVideosfx();
+window.addEventListener("resize",resizeVideosfx);
+
+function videosFxRand(min,max){
+return min+Math.random()*(max-min);
+}
+
+const videosFxParticles=[];
+for(let i=0;i<24;i++){
+videosFxParticles.push({
+x:videosFxRand(0,videosFxW),y:videosFxRand(0,videosFxH),
+r:videosFxRand(0.6,1.6),
+speed:videosFxRand(0.03,0.12),
+phase:videosFxRand(0,Math.PI*2)
+});
+}
+
+let videosFxTime=0;
+
+function frameVideosfx(){
+
+videosFxTime+=1;
+videosFxCtx.clearRect(0,0,videosFxW,videosFxH);
+
+for(const p of videosFxParticles){
+p.y-=p.speed;
+if(p.y<-10){p.y=videosFxH+10;p.x=videosFxRand(0,videosFxW);}
+const tw=0.2+0.25*Math.sin(videosFxTime*0.02+p.phase);
+videosFxCtx.beginPath();
+videosFxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+videosFxCtx.fillStyle=`rgba(255,246,225,${tw})`;
+videosFxCtx.fill();
+}
+
+requestAnimationFrame(frameVideosfx);
+
+}
+
+frameVideosfx();
+</script>
+
+
+<h2 class="keptChapter">Videos</h2>
+<div class="keptRule"><span></span></div>
+
+<div class="viewToggle" onclick="toggleFilmsView()" title="Switch view" id="filmsViewToggleBtn">
+<svg id="filmsToggleIconGrid" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="3" width="7" height="7"></rect>
+<rect x="14" y="3" width="7" height="7"></rect>
+<rect x="3" y="14" width="7" height="7"></rect>
+<rect x="14" y="14" width="7" height="7"></rect>
+</svg>
+<svg id="filmsToggleIconCarousel" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+<rect x="7" y="4" width="10" height="16" rx="1.5"></rect>
+<path d="M3 9v6"></path>
+<path d="M21 9v6"></path>
+</svg>
+</div>
+
+<div class="view active" id="filmsCarouselView">
+<div class="carousel">
+<div class="arrow left" onclick="moveFilm(-1)">‹</div>
+<div class="arrow right" onclick="moveFilm(1)">›</div>
+<div class="slides">
+<div class="slide active" data-clip="0">
+</div>
+<div class="slide" data-clip="1">
+</div>
+<div class="slide" data-clip="2">
+</div>
+<div class="slide" data-clip="3">
+</div>
+<div class="slide" data-clip="4">
+</div>
+<div class="slide" data-clip="5">
+</div>
+<div class="slide" data-clip="6">
+</div>
+<div class="slide" data-clip="7">
+</div>
+<div class="slide" data-clip="8">
+</div>
+<div class="slide" data-clip="9">
+</div>
+</div>
+<div class="dots">
+<span class="dot active" onclick="goFilm(0)"></span>
+<span class="dot" onclick="goFilm(1)"></span>
+<span class="dot" onclick="goFilm(2)"></span>
+<span class="dot" onclick="goFilm(3)"></span>
+<span class="dot" onclick="goFilm(4)"></span>
+<span class="dot" onclick="goFilm(5)"></span>
+<span class="dot" onclick="goFilm(6)"></span>
+<span class="dot" onclick="goFilm(7)"></span>
+<span class="dot" onclick="goFilm(8)"></span>
+<span class="dot" onclick="goFilm(9)"></span>
+</div>
+</div>
+</div>
+
+<div class="view" id="filmsGridView">
+<div class="grid">
+<div class="gridCard" data-clip="0">
+</div>
+<div class="gridCard" data-clip="1">
+</div>
+<div class="gridCard" data-clip="2">
+</div>
+<div class="gridCard" data-clip="3">
+</div>
+<div class="gridCard" data-clip="4">
+</div>
+<div class="gridCard" data-clip="5">
+</div>
+<div class="gridCard" data-clip="6">
+</div>
+<div class="gridCard" data-clip="7">
+</div>
+<div class="gridCard" data-clip="8">
+</div>
+<div class="gridCard" data-clip="9">
+</div>
+</div>
+</div>
+
+<script>
+/* ---- little films: one shared media element per clip ----
+   Each clip has exactly ONE <video>/<iframe> node, created once below.
+   Switching between carousel and grid moves that same node into the
+   matching slot instead of duplicating it, so playback position/state
+   is never lost or restarted just because the view changed. */
+
+/* MOBILE-ONLY flag, used below both for per-clip real aspect ratios
+   and for the grid lazy-load observer further down. Desktop (false)
+   keeps the original fixed 16:9/4:5 cropped boxes untouched. */
+const filmIsMobile=window.matchMedia("(max-width:760px)").matches;
+
+const filmClipsData=[
+{type:'iframe',src:'https://bysezoxexe.com/e/w26zv9f1p7w1'},
+{type:'iframe',src:'https://bysezoxexe.com/e/sgb4g4vtcady'},
+{type:'iframe',src:'https://bysezoxexe.com/e/jfnk6m2f4xr1'},
+{type:'iframe',src:'https://bysezoxexe.com/e/aipam3fgokr9'},
+{type:'iframe',src:'https://bysezoxexe.com/e/s38rhirht0zx'},
+{type:'iframe',src:'https://bysezoxexe.com/e/waalhxv5h82j'},
+{type:'iframe',src:'https://bysezoxexe.com/e/nebbprnasf4r'},
+{type:'iframe',src:'https://bysezoxexe.com/e/b9a1gj51wgcl'},
+{type:'iframe',src:'https://bysezoxexe.com/e/z2ih7sn16f5h'},
+{type:'iframe',src:'https://bysezoxexe.com/e/8zjkqb2w0grc'}
+];
+const filmMediaEls=filmClipsData.map(clip=>{
+if(clip.type==='video'){
+const v=document.createElement('video');
+v.controls=true;
+v.src=clip.src;
+v.preload='metadata';         /* don't pull video bytes until the user actually plays it */
+v.setAttribute('playsinline','');
+v.setAttribute('webkit-playsinline','');   /* without this, iOS Safari hijacks playback into its own fullscreen player, losing the carousel/grid UI */
+if(filmIsMobile){
+/* MOBILE ONLY: show this clip's real shape instead of the fixed
+   16:9 crop. Desktop deliberately skips this and keeps object-fit:
+   cover with the CSS's fixed aspect-ratio (see .slide/.gridCard
+   video,iframe rules) — untouched. */
+if(clip.ratio){
+v.style.aspectRatio=clip.ratio;
+}else{
+v.addEventListener('loadedmetadata',()=>{
+if(v.videoWidth && v.videoHeight){
+v.style.aspectRatio=`${v.videoWidth}/${v.videoHeight}`;
+}
+});
+}
+}
+return v;
+}else{
+const f=document.createElement('iframe');
+f.dataset.src=clip.src;   /* real URL kept here; src is only set while this clip is actually visible */
+f.setAttribute('allowfullscreen','');
+f.setAttribute('scrolling','no');
+f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
+if(filmIsMobile){
+/* MOBILE ONLY: same reasoning as the video branch above */
+f.style.aspectRatio=clip.ratio||'16/9';
+}
+return f;
+}
+});
+const filmSlideSlots=document.querySelectorAll('#filmsCarouselView .slide');
+const filmGridSlots=document.querySelectorAll('#filmsGridView .gridCard');
+
+/* place each clip's element into its starting slot (carousel, since
+   that's the default active view) before the caption paragraph */
+filmSlideSlots.forEach((slot,i)=>{
+slot.insertBefore(filmMediaEls[i],slot.firstChild);
+});
+
+/* ---- little films: iframe load/unload ----
+   Cross-origin iframes can't be paused via JS, so the only reliable way
+   to stop playback when a clip is hidden is to drop its src entirely
+   (fully unloads the embedded player). The real URL is kept on
+   data-src and copied back into src when the clip becomes visible again. */
+function activateIframe(el){
+if(el.tagName==='IFRAME' && !el.getAttribute('src') && el.dataset.src){
+el.src=el.dataset.src;
+}
+}
+function deactivateIframe(el){
+if(el.tagName==='IFRAME' && el.getAttribute('src')){
+el.removeAttribute('src');
+}
+}
+
+/* MOBILE-ONLY: grid view shows every clip at once, which on desktop
+   just means every iframe/video loads together (fine on broadband).
+   On mobile, that's up to several embeds all pulling data over
+   cellular the instant grid view opens. Below ~760px, iframes in the
+   grid are lazy-loaded instead — only the ones actually scrolled
+   into view get their src set. Desktop behaviour (eager-load
+   everything, see updateFilmMediaVisibility) is completely unchanged.
+   (filmIsMobile is declared near the top of this script.) */
+let filmGridObserver=null;
+if(filmIsMobile && 'IntersectionObserver' in window){
+filmGridObserver=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+const idx=Array.prototype.indexOf.call(filmGridSlots,entry.target);
+if(idx===-1)return;
+const el=filmMediaEls[idx];
+if(entry.isIntersecting){ activateIframe(el); }
+else{ deactivateIframe(el); }
+});
+},{root:null,rootMargin:'200px',threshold:0.01});
+}
+function startFilmGridLazyLoad(){
+if(!filmGridObserver)return;
+filmGridSlots.forEach(function(slot){ filmGridObserver.observe(slot); });
+}
+function stopFilmGridLazyLoad(){
+if(!filmGridObserver)return;
+filmGridSlots.forEach(function(slot){ filmGridObserver.unobserve(slot); });
+}
+
+/* decides, from the current view + carousel index, which clips are
+   actually visible right now and loads/unloads their media accordingly */
+function updateFilmMediaVisibility(){
+filmMediaEls.forEach((el,i)=>{
+const visible=currentFilmView==='grid'?true:(i===filmIdx);
+if(visible){
+/* on mobile, grid-view iframes are handled by the lazy-load
+   observer above instead of being force-loaded all at once */
+if(!(currentFilmView==='grid' && filmIsMobile && el.tagName==='IFRAME')){
+activateIframe(el);
+}
+}else{
+deactivateIframe(el);
+if(el.tagName==='VIDEO'){ el.pause(); }
+}
+});
+}
+
+/* ---- little films: carousel logic ---- */
+const filmSlides=filmSlideSlots;
+const filmDots=document.querySelectorAll('#filmsCarouselView .dot');
+let filmIdx=0;
+function renderFilm(){
+filmSlides.forEach((s,i)=>s.classList.toggle('active',i===filmIdx));
+filmDots.forEach((d,i)=>d.classList.toggle('active',i===filmIdx));
+updateFilmMediaVisibility();
+}
+function moveFilm(dir){
+filmIdx=(filmIdx+dir+filmSlides.length)%filmSlides.length;
+renderFilm();
+}
+function goFilm(i){
+filmIdx=i;
+renderFilm();
+}
+
+/* ---- little films: view toggle logic ---- */
+const filmViews={
+carousel:document.getElementById('filmsCarouselView'),
+grid:document.getElementById('filmsGridView')
+};
+const filmIconGrid=document.getElementById('filmsToggleIconGrid');
+const filmIconCarousel=document.getElementById('filmsToggleIconCarousel');
+let currentFilmView='carousel';
+
+function setFilmView(name){
+currentFilmView=name;
+Object.entries(filmViews).forEach(([key,el])=>el.classList.toggle('active',key===name));
+filmIconGrid.style.display=name==='carousel'?'block':'none';
+filmIconCarousel.style.display=name==='grid'?'block':'none';
+
+/* relocate the shared elements into the slots for the view now showing,
+   rather than pausing+leaving-behind a duplicate that never played */
+const targetSlots=name==='carousel'?filmSlideSlots:filmGridSlots;
+filmMediaEls.forEach((el,i)=>{
+targetSlots[i].insertBefore(el,targetSlots[i].firstChild);
+});
+
+/* grid shows every clip at once, so all iframes get their src restored
+   (desktop) or handed to the lazy-load observer (mobile, started
+   below); carousel shows one clip at a time, so renderFilm() (via
+   updateFilmMediaVisibility) loads only the active slide's iframe and
+   unloads the rest */
+if(name==='carousel'){
+if(filmIsMobile){ stopFilmGridLazyLoad(); }
+renderFilm();
+}else{
+if(filmIsMobile){ startFilmGridLazyLoad(); } else { updateFilmMediaVisibility(); }
+}
+}
+function toggleFilmsView(){
+setFilmView(currentFilmView==='carousel'?'grid':'carousel');
+}
+
+/* MOBILE-ONLY: swipe left/right to move between carousel slides,
+   mirroring the existing "Our Story" diary swipe elsewhere in this
+   file. Only wired up on touch-capable devices (touchstart never
+   fires from a mouse), so desktop/trackpad behaviour — arrows and
+   dots only — is completely unchanged.
+
+   Listening on .slides directly doesn't work for 3 of the 6 clips:
+   those are cross-origin iframes, and any touch that lands on an
+   iframe's rendered surface is delivered entirely to the iframe's own
+   page — it never reaches this page's JS, no matter what listeners or
+   touch-action rules are set on the parent (verified: this is true
+   even same-origin, it's how frames isolate input in general, not a
+   permissions issue we can request around). The only way to catch a
+   swipe that starts anywhere on the clip is a plain same-document
+   overlay sitting on top of it. A short tap (not a drag) still reaches
+   the real video/iframe underneath — see the pointer-events toggle in
+   finish() below — so tapping to play/pause a clip still works. */
+if(("ontouchstart" in window)||navigator.maxTouchPoints>0){
+(function(){
+const slidesEl=document.querySelector('#filmsCarouselView .slides');
+if(!slidesEl)return;
+
+const swipeCatcher=document.createElement('div');
+swipeCatcher.style.position='absolute';
+swipeCatcher.style.inset='0';
+swipeCatcher.style.zIndex='3';
+swipeCatcher.style.touchAction='pan-y';
+slidesEl.appendChild(swipeCatcher);
+
+let touchStartX=0,touchStartY=0;
+let dragging=false,locked=false;
+const MIN_DIST=40;
+
+function reset(){
+dragging=false;
+locked=false;
+}
+
+swipeCatcher.addEventListener('touchstart',function(e){
+if(!e.touches||!e.touches.length)return;
+touchStartX=e.touches[0].clientX;
+touchStartY=e.touches[0].clientY;
+dragging=true;
+locked=false;
+},{passive:true});
+
+swipeCatcher.addEventListener('touchmove',function(e){
+if(!dragging||!e.touches||!e.touches.length)return;
+const dx=e.touches[0].clientX-touchStartX;
+const dy=e.touches[0].clientY-touchStartY;
+if(!locked&&(Math.abs(dx)>10||Math.abs(dy)>10)){
+locked=Math.abs(dx)>Math.abs(dy);
+}
+if(locked) e.preventDefault();
+},{passive:false});
+
+function finish(e){
+if(!dragging)return;
+const touch=(e.changedTouches&&e.changedTouches[0]);
+let wasSwipe=false;
+if(touch){
+const dx=touch.clientX-touchStartX;
+const dy=touch.clientY-touchStartY;
+if(Math.abs(dx)>=MIN_DIST&&Math.abs(dx)>Math.abs(dy)){
+moveFilm(dx<0?1:-1);
+wasSwipe=true;
+}
+}
+reset();
+/* a plain tap, not a swipe: step out of the way so the browser's
+   synthesized click for this touch (fires right after this handler
+   returns) lands on the real video/iframe instead of the overlay,
+   letting play/pause still work as normal. */
+if(!wasSwipe){
+swipeCatcher.style.pointerEvents='none';
+setTimeout(()=>{swipeCatcher.style.pointerEvents='auto';},400);
+}
+}
+
+swipeCatcher.addEventListener('touchend',finish,{passive:true});
+swipeCatcher.addEventListener('touchcancel',finish,{passive:true});
+})();
+}
+
+/* initial state: carousel view, slide 0 active — load only that
+   clip's iframe (if any) and leave the rest unloaded */
+updateFilmMediaVisibility();
+
+/* called when leaving the Videos page entirely (see switchScene below).
+   Unlike updateFilmMediaVisibility(), which only cares about which
+   clip is visible *within* this page, this unconditionally stops
+   everything — otherwise whatever was playing when you navigated
+   away would keep running invisibly in the background, since the
+   videosScene container is just hidden (display:none-style), not
+   destroyed. Also stops the mobile grid lazy-load observer so it
+   doesn't keep firing while the page is hidden. */
+function unloadAllFilmMedia(){
+if(filmIsMobile){ stopFilmGridLazyLoad(); }
+filmMediaEls.forEach(el=>{
+if(el.tagName==='VIDEO'){ el.pause(); }
+deactivateIframe(el);
+});
+}
+
+/* called when entering the Videos page (see switchScene below).
+   Restores the correct clip(s) for whichever view was last active,
+   and — on mobile, if grid was that view — restarts the lazy-load
+   observer so cards get their src back as they scroll into view. */
+function filmOnPageEnter(){
+updateFilmMediaVisibility();
+if(filmIsMobile && currentFilmView==='grid'){ startFilmGridLazyLoad(); }
+}
+</script>
+<button class="keptBack" onclick="backToVault()">← Back To Home</button>
+</div>
+
+<!-- ================= MEMORIES SCENE ================= -->
+<div id="memoriesScene">
+<div class="vignette"></div>
+<canvas id="memoriesFXCanvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block !important;"></canvas>
+
+<script>
+/* same soft drifting-dust background as the vault page */
+const memoriesFxCanvas=document.getElementById("memoriesFXCanvas");
+const memoriesFxCtx=memoriesFxCanvas.getContext("2d");
+
+let memoriesFxW,memoriesFxH;
+function resizeMemoriesfx(){
+memoriesFxW=memoriesFxCanvas.width=window.innerWidth;
+memoriesFxH=memoriesFxCanvas.height=window.innerHeight;
+}
+resizeMemoriesfx();
+window.addEventListener("resize",resizeMemoriesfx);
+
+function memoriesFxRand(min,max){
+return min+Math.random()*(max-min);
+}
+
+/* mobile remedy 6: fewer particles + half framerate on small screens only —
+   desktop keeps the original 24 particles at full framerate, untouched */
+const memoriesFxIsMobile=window.matchMedia("(max-width:760px)").matches;
+const memoriesFxParticles=[];
+const memoriesFxCount=memoriesFxIsMobile?14:24;
+for(let i=0;i<memoriesFxCount;i++){
+memoriesFxParticles.push({
+x:memoriesFxRand(0,memoriesFxW),y:memoriesFxRand(0,memoriesFxH),
+r:memoriesFxRand(0.6,1.6),
+speed:memoriesFxRand(0.03,0.12),
+phase:memoriesFxRand(0,Math.PI*2)
+});
+}
+
+let memoriesFxTime=0;
+
+function frameMemoriesfx(){
+
+memoriesFxTime+=1;
+
+if(memoriesFxIsMobile && memoriesFxTime%2!==0){
+requestAnimationFrame(frameMemoriesfx);
+return;
+}
+
+memoriesFxCtx.clearRect(0,0,memoriesFxW,memoriesFxH);
+
+for(const p of memoriesFxParticles){
+p.y-=p.speed;
+if(p.y<-10){p.y=memoriesFxH+10;p.x=memoriesFxRand(0,memoriesFxW);}
+const tw=0.2+0.25*Math.sin(memoriesFxTime*0.02+p.phase);
+memoriesFxCtx.beginPath();
+memoriesFxCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+memoriesFxCtx.fillStyle=`rgba(255,246,225,${tw})`;
+memoriesFxCtx.fill();
+}
+
+requestAnimationFrame(frameMemoriesfx);
+
+}
+
+frameMemoriesfx();
+</script>
+
+
+<div class="skyWrap">
+
+<div class="skyEyebrow">SMALL THINGS, KEPT</div>
+<h2 class="skyTitle">Little things untold</h2>
+
+<div class="skyTimeline">
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">11/07</div>
+<div class="timelineText">iniki bank exam irunthuchu pondy la
+appa ku pondy la oru vela irukunu avarum vantharu.. ana ore alachal.. exam mudichitu thatha ku medicine vangitu varalam nu irunthom ana entha medical layum illa .. aprm cuddalore la vanthu neraiya medical eri erangi eppadiyo vangitom.. aprm kelambitom palur reach agum pothu back tyre puncture.. romba thooram bike ah thallitu aprm puncture otitu aprm kadaila biriyani vangitu vantom
+Actual anniki semester exam um irunchi 10 maniku.. ana sem exam ezhuthala
+Bank exam eh 10.30 ku tha mudinchi... so poga mudila
+6 maniku poitu mathiyam 2.30 dha veetuku vanthom
+sema tired</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">12/07</div>
+<div class="timelineText">iniki semester exam ezhuthitu palur vazhi la pogama nellikupam vazhi tha vanthen</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">17/07</div>
+<div class="timelineText">iniki amma dharga thirunal ku ponum nu kuptanga.. anga oru kadai la amma hairclip pathutu irunthanga. avlo jimiki irunthuchu anga.. unaku vaanganum nu avlo aasaiya irunchi.. ana vaanguna en kaasula dhan vanguven.. oru naal unaku pudichathu ellam vaangi tharuven..</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">18/07</div>
+<div class="timelineText">i need you</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">19/07</div>
+<div class="timelineText">un veedu vazhiya vanthen</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">21/07</div>
+<div class="timelineText">Oru kanavu.. neeyum naanum onna school padikura maari 11th or 12th.. enga school dhan but ellarum puthu teachers yaarum therinchavanga illa enaku therincha pasanga kuda illa.. ni enga school uniform la.. rendu perum ore class.. 12th b1 classroom.. etho teacher pathi romba neram polambitu iruntha enta..</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">22/07</div>
+<div class="timelineText">Summa idle ah irukum pothu unna pathi nyabagam vantha nenacha ok ana eppavum en mind laye iruka.. fan odalanu appa fan kalati maatitu iruntharu apo avaru etho pesitu iruntharu athuku nanum pathil sollitu irunthen.. ana mind la unna pathi tha yosanaiyave irunthuthu like ni ok va ellam ozhunga padikuriya ofc la avlo drama aguthunu sonna ipo ni epdi irukiyo.. ithu maari munnadilam yosipen but ipolam ella neramum ithelam mandaila oditu iruku.. enake ithu puthusa iruku like appa etho ketaru athuku na pathil soltu iruken ana ni dhan en mind full ah iruka apo kuda... Un happiness, un health, nee nalla irukiya nu therinjikanum nu thonum</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">24/07</div>
+<div class="timelineText">En mandai la irunthu ni poga maatikura.. entha songs ketalum ni dhan nyabagam vara.. mudila.. torture ah iruku.. namma close agamaiye irunthurukanum pola
+inime unta ethum katika vendam nu thonuthu like na unna ignore panren nu nenachalum paravala</div>
+</div>
+</div>
+
+<div class="timelineRow">
+<div class="timelineDot"></div>
+<div class="timelineContent">
+<div class="timelineTitle">25/07</div>
+<div class="timelineText">one week ah na telegram open pannave illa.. Romba mudila.. seri paravala nu unaku message panna pathen.. ni neraiya msg pannniruntha.. athula onnu solliruntha... enaku oru maari iruku so inime unakaga panrathu ellame stop pannida poren onnu mattum pathila iruku atha mattum un birthday ku complete pantu athuku aprm ethum panna maaten even intha maari notes la ezhuthurathu kuda
+telegram inime na use panna maaten.. uninstall panten ennala mudila
+Antha birthday ku kuda atha panna vendam nu thonuthu... thala valikuthu
+
+Everything i loved, i lost...
+
+Ni ivlo pesa try pannalum na unna ignore pantenu ni nenaikalam... ana I need you more than you need me
+
+Ni onnu enakaga sonna... athu en life la na maraka maaten.. yaarum enta apdi solluvangala nu theriyathu but i'll cherish forever that you really had care for me by saying those two words</div>
+</div>
+</div>
+
+</div>
+
+<button class="keptBack skyBack" onclick="backToVault()">← Back To Home</button>
+
+</div>
+</div>
+
+<script>
+/* mobile remedy 1: collapse very long diary entries with a Read more/less
+   toggle so the page doesn't feel like a wall of text on a phone screen.
+   Desktop is untouched — this whole block no-ops above 760px. */
+(function(){
+if(!window.matchMedia("(max-width:760px)").matches) return;
+document.querySelectorAll("#memoriesScene .timelineText").forEach(function(el){
+if(el.scrollHeight<=280) return;
+el.classList.add("tt-clamped");
+var btn=document.createElement("button");
+btn.type="button";
+btn.className="tt-toggle";
+btn.textContent="Read more";
+btn.addEventListener("click",function(){
+var expanded=el.classList.toggle("tt-expanded");
+el.classList.toggle("tt-clamped",!expanded);
+btn.textContent=expanded?"Read less":"Read more";
+});
+el.insertAdjacentElement("afterend",btn);
+});
+})();
+</script>
+
+<script>
+
+/* ==================================================
+   SCENE CENTERING WRAPPER
+   ================================================== */
+/* Wraps each scene's direct children in a .sceneInner div so the
+   scene itself can stay a simple scrollable container while the
+   wrapper (via CSS auto margins) handles centering that degrades
+   gracefully to top-alignment when content is taller than the
+   screen — this is what keeps bottom buttons from ever being cut
+   off, and works identically in every browser. */
+(function wrapSceneContent(){
+const sceneIds=["intro","home","wordsScene","moonScene","letterScene",
+"galleryScene","whatifScene","birthdayScene","finalScene",
+"vaultScene","videosScene","storyScene","memoriesScene"];
+
+sceneIds.forEach(function(id){
+const scene=document.getElementById(id);
+if(!scene || scene.querySelector(":scope > .sceneInner")) return;
+
+const inner=document.createElement("div");
+inner.className="sceneInner";
+
+/* fixed-position canvases (scene FX layers) stay direct children
+   of the scene so they keep covering the full viewport rather
+   than scrolling with the content */
+const toMove=[];
+Array.from(scene.children).forEach(function(child){
+if(child.tagName==="CANVAS"){
+return;
+}
+toMove.push(child);
+});
+
+toMove.forEach(function(child){
+inner.appendChild(child);
+});
+
+scene.appendChild(inner);
+});
+})();
+
+/* ==================================================
+   SCENE TRANSITION HELPER
+   ================================================== */
+
+let isTransitioning=false;
+
+function switchScene(hideId,showId,callback){
+
+isTransitioning=true;
+
+/* the Little Films carousel/grid only unloads iframes when switching
+   between its own two views (see updateFilmMediaVisibility in the
+   videosScene script) — that doesn't cover leaving the Videos page
+   altogether, so do that here, once, for every kind of exit. */
+if(hideId==="videosScene" && typeof unloadAllFilmMedia==="function"){
+unloadAllFilmMedia();
+}
+
+/* mirror of the above: re-entering the Videos page needs its own
+   hook too, otherwise whatever was unloaded on the way out (the
+   active clip's video/iframe) just stays empty — previously this
+   only got fixed by accident when a view toggle happened to call
+   updateFilmMediaVisibility() again. filmOnPageEnter also restarts
+   the mobile grid lazy-load observer if grid was the active view. */
+if(showId==="videosScene" && typeof filmOnPageEnter==="function"){
+filmOnPageEnter();
+}
+
+/* nebula background is shown only on the login/intro scene */
+const enteringIntro=showId==="intro";
+const overlayEl=document.querySelector(".overlay");
+const starsEl=document.getElementById("stars");
+
+/* leaving the login/intro scene (e.g. right after a correct
+   password) — the black nebula background must stay exactly as
+   it is for as long as the login glass panel is still visible
+   and fading out, and only hand over to the next scene's theme
+   (and only reveal the next scene itself) once the panel has
+   completely disappeared. */
+const exitingIntro=(hideId==="intro") && !enteringIntro;
+
+if(enteringIntro && overlayEl){
+/* skip the overlay's own fade-out (which is what reveals the
+   starfield underneath) so the nebula appears instantly along
+   with the glass panel, instead of fading in over .6s */
+overlayEl.style.transition="none";
+if(starsEl){
+starsEl.style.transition="none";
+}
+}
+
+const hideEl=hideId?document.getElementById(hideId):null;
+const showEl=document.getElementById(showId);
+
+/* the vault and its folder pages (story/videos/memories) fade
+   between each other much faster than the rest of the site —
+   these are short, related "flips" within the same place rather
+   than a scene-to-scene journey, so the long fade would feel
+   sluggish here. */
+const vaultGroup=["vaultScene","storyScene","videosScene","memoriesScene"];
+const isVaultHop=vaultGroup.includes(hideId)&&vaultGroup.includes(showId);
+
+/* leaving the login screen fades out noticeably faster than the
+   rest of the site — the black background is already sitting
+   there unchanged underneath (see exitingIntro above), so there's
+   no need for the long, slow .9s fade before handing over to the
+   next scene */
+const introExitMs=350;
+
+const fadeOutMs=isVaultHop?250:(exitingIntro?introExitMs:900);
+const fadeInDelayMs=isVaultHop?120:450;
+
+if(exitingIntro && hideEl){
+/* override the CSS's default .9s opacity transition just for
+   this fade-out, so it visually matches fadeOutMs above */
+hideEl.style.transition=`opacity ${introExitMs}ms ease`;
+}
+
+if(exitingIntro && starsEl){
+/* the starfield + overlay cross-fade also speeds up to match,
+   instead of their default, slower .6s */
+starsEl.style.transition=`opacity ${introExitMs}ms ease`;
+if(overlayEl){
+overlayEl.style.transition=`opacity ${introExitMs}ms ease`;
+}
+setTimeout(()=>{
+starsEl.style.transition="";
+if(overlayEl){
+overlayEl.style.transition="";
+}
+},introExitMs);
+}
+
+function applyBackgroundClasses(){
+document.body.classList.toggle("nebula-active", enteringIntro);
+document.body.classList.toggle("cake-active", showId==="birthdayScene");
+document.body.classList.toggle("vault-active", ["vaultScene","storyScene","videosScene","memoriesScene"].includes(showId));
+document.body.classList.toggle("gallery-active", showId==="galleryScene");
+}
+
+/* fade the black nebula background out at the same time, and
+   over the same duration, as the login panel itself when leaving
+   intro — the two fade out together as one cohesive motion,
+   rather than the background waiting for the panel to fully
+   vanish first */
+applyBackgroundClasses();
+
+if(enteringIntro && overlayEl){
+void overlayEl.offsetHeight;
+requestAnimationFrame(()=>{
+overlayEl.style.transition="";
+if(starsEl){
+starsEl.style.transition="";
+}
+});
+}
+
+/* full duration of this transition — this is how long it takes
+   for the outgoing scene to actually finish fading out and get
+   display:none applied. isTransitioning must stay locked for
+   this ENTIRE window, not just until the incoming scene starts
+   appearing. Otherwise a fast second click (e.g. mashing the
+   back button) can start a new transition while the previous
+   scene is still fading out underneath — producing two
+   full-screen scenes visible at once, i.e. text overlapping text. */
+const totalDuration=enteringIntro?0:(hideEl?fadeOutMs:0);
+
+if(hideEl && hideEl!==showEl){
+if(enteringIntro){
+/* intro pops in instantly with no fade, so leave the outgoing
+   scene visible for that same amount of time (i.e. none) —
+   otherwise its content stays visible through intro's
+   transparent areas (around the glass panel) for up to .9s */
+hideEl.style.opacity="0";
+hideEl.style.display="none";
+}else{
+hideEl.style.opacity="0";
+setTimeout(()=>{
+if(hideEl.style.opacity==="0"){
+hideEl.style.display="none";
+}
+},fadeOutMs);
+}
+}
+
+/* when leaving intro, don't even reveal the next scene until the
+   login panel is fully gone (fadeOutMs) — otherwise the next
+   scene's own background would show through/behind the still-
+   fading-out panel. For every other transition, the incoming
+   scene starts appearing after the shorter fadeInDelayMs, so it
+   overlaps briefly with the outgoing one (the normal cross-fade). */
+const revealDelayMs=exitingIntro?fadeOutMs:(enteringIntro?0:(hideEl?fadeInDelayMs:0));
+
+setTimeout(()=>{
+
+showEl.style.display="flex";
+
+if(showId==="intro"){
+
+/* skip the fade-IN only: jump straight to opacity 1 with no
+   transition, so the glass panel appears fully opaque from the
+   very first frame instead of fading up over .9s. The transition
+   is restored right after, so fading this scene back OUT later
+   (e.g. via the back button) still animates normally. */
+showEl.style.transition="none";
+showEl.style.opacity="1";
+void showEl.offsetHeight;
+requestAnimationFrame(()=>{
+showEl.style.transition="";
+});
+
+}else{
+
+requestAnimationFrame(()=>{
+requestAnimationFrame(()=>{
+showEl.style.opacity="1";
+});
+});
+
+}
+
+if(callback){
+callback();
+}
+
+},revealDelayMs);
+
+/* release the lock only once the outgoing scene has truly
+   finished hiding, not as soon as the new one starts appearing */
+setTimeout(()=>{
+isTransitioning=false;
+},totalDuration);
+
+}
+
+/* ==================================================
+   OPEN ON THE HOME SCENE
+   ================================================== */
+
+function revealHome(){
+switchScene(null,"home");
+}
+if(document.readyState==="loading"){
+document.addEventListener("DOMContentLoaded",revealHome);
+}else{
+revealHome();
+}
+
+/* ==================================================
+   BACK NAVIGATION (history stack — supports
+   non-linear jumps like the vault folders)
+   ================================================== */
+
+let sceneHistory=["home"];
+
+/* once true (after "One Last Secret" is clicked on the final
+   scene), the drifting ambient hearts stay off for good */
+let ambientHeartsStopped=false;
+
+/* scenes where the ambient floating hearts/moons/stars
+   should be paused for a cleaner, premium, still look */
+const noAmbientScenes=["vaultScene","storyScene","videosScene","memoriesScene"];
+
+function isAmbientPaused(){
+if(ambientHeartsStopped){
+return true;
+}
+const current=sceneHistory[sceneHistory.length-1];
+return noAmbientScenes.includes(current);
+}
+
+let finalMessageComplete=false;
+
+function showBackButton(){
+document.getElementById("backBtn").style.display=
+sceneHistory.length>1 ? "flex" : "none";
+document.getElementById("lockBtn").classList.toggle(
+"visible",
+sceneHistory[sceneHistory.length-1]==="finalScene" && finalMessageComplete
+);
+}
+
+function goToScene(nextId,callback){
+if(isTransitioning){
+return;
+}
+const currentId=sceneHistory[sceneHistory.length-1];
+switchScene(currentId,nextId,callback);
+sceneHistory.push(nextId);
+showBackButton();
+}
+
+function goBack(){
+
+if(isTransitioning){
+return;
+}
+
+if(sceneHistory.length<=1){
+return;
+}
+
+const currentId=sceneHistory.pop();
+const prevId=sceneHistory[sceneHistory.length-1];
+
+if(celebrateTimeoutId!==null){
+clearTimeout(celebrateTimeoutId);
+celebrateTimeoutId=null;
+}
+
+if(letterTypeTimeoutId!==null){
+clearTimeout(letterTypeTimeoutId);
+letterTypeTimeoutId=null;
+}
+
+stopSorryWords();
+
+if(finalWriteTimeoutId!==null){
+clearTimeout(finalWriteTimeoutId);
+finalWriteTimeoutId=null;
+}
+
+if(wordsTimer!==null){
+clearTimeout(wordsTimer);
+wordsTimer=null;
+}
+
+const wordsAudio=document.getElementById("wordsAudio");
+if(wordsAudio && !wordsAudio.paused){
+wordsAudio.pause();
+wordsAudio.currentTime=0;
+}
+
+clearFallingEmojis();
+
+if(currentId==="vaultScene"){
+const passwordField=document.getElementById("password");
+if(passwordField){
+passwordField.value="";
+}
+document.getElementById("error").innerHTML="";
+}
+
+switchScene(currentId,prevId,prevId==="wordsScene"?startWordsSequence:(prevId==="letterScene"?startSorryWords:null));
+
+showBackButton();
+
+}
+
+/* ==================================================
+   FINAL SCENE -> LOCKED PAGE
+   ================================================== */
+
+function goToLocked(){
+clearFallingEmojis();
+ambientHeartsStopped=true;
+goToScene("intro");
+}
+
+/* ==================================================
+   PASSWORD / UNLOCK -> PREMIUM VAULT
+   ================================================== */
+
+function togglePasswordVisibility(){
+const input=document.getElementById("password");
+const eyeIcon=document.getElementById("eyeIcon");
+const eyeOffIcon=document.getElementById("eyeOffIcon");
+const toggleBtn=document.getElementById("passwordToggle");
+if(input.type==="password"){
+input.type="text";
+eyeIcon.style.display="none";
+eyeOffIcon.style.display="block";
+toggleBtn.setAttribute("aria-label","Hide password");
+}else{
+input.type="password";
+eyeIcon.style.display="block";
+eyeOffIcon.style.display="none";
+toggleBtn.setAttribute("aria-label","Show password");
+}
+}
+
+const PASSWORD="guerrilla";
+
+function submitPassword(){
+
+const input=document.getElementById("password");
+const errorEl=document.getElementById("error");
+const btn=document.getElementById("submitBtn");
+const password=input.value;
+
+if(!password){
+errorEl.textContent="Please enter a password";
+return;
+}
+
+btn.disabled=true;
+errorEl.textContent="";
+
+if(password.toLowerCase()===PASSWORD.toLowerCase()){
+
+/* "warm up" the audio element on this real user click/tap —
+   browsers require a genuine user gesture before audio is
+   allowed to play at all, and the very first play() call also
+   carries a small, inconsistent one-time decoding delay. Doing
+   a silent play+immediate pause here, right on the password
+   click, absorbs both of those costs now so the real play()
+   call inside startWordsSequence (fired after the scene
+   transition) starts on an already-unlocked, already-decoded
+   audio element — giving identical timing every single visit. */
+const wordsAudio=document.getElementById("wordsAudio");
+if(wordsAudio){
+const primePlay=wordsAudio.play();
+if(primePlay&&primePlay.catch){
+primePlay.then(()=>{
+wordsAudio.pause();
+wordsAudio.currentTime=0;
+}).catch(()=>{});
+}
+}
+
+goToScene("wordsScene",startWordsSequence);
+}else{
+errorEl.textContent="Wrong password:)";
+}
+
+btn.disabled=false;
+
+}
+
+/* ==================================================
+   WORDS SCENE (plays right after a successful login,
+   then continues on into the vault)
+   ================================================== */
+
+const wordsList=[
+"Friend","Home","Angel","Peace","Happiness",
+"Comfort","Constant","Sunshine","Safe place","Everything","Trusted one","Kind soul","Kanmani",
+"Precious","One and only","Little suriya"
+];
+
+let wordsIndex=0;
+let wordsTimer=null;
+let currentDisplayedWord="";
+let wordsFixedAnchorLeft=0;
+let wordsHomeAnchorLeft=0;
+
+/* ==================================================
+   LOCK "My"'S POSITION
+   Instead of centering "My" on its own width (which
+   moves depending on which word is showing), we
+   compute where "My" would sit if the reference pair
+   "My Happiness" were centered as a whole, then fix
+   "My" at that exact x for every word that isn't wider
+   than "Happiness". Words wider than "Happiness" would
+   run off the edge if "My" stayed pinned there, so for
+   those specific words the whole "My <word>" pair is
+   centered together instead, just for that word.
+
+   Friend / Home / Angel / Peace are the exception: they
+   use their own fixed anchor, measured off "My Home"
+   instead of "My Happiness".
+   ================================================== */
+
+/* everything below this line — the "Happiness" anchor, the
+   Friend/Home/Angel/Peace group, centering long words, and the
+   shrink-to-fit safety net — is MOBILE-ONLY. On desktop/PC widths,
+   "My" always anchors off "My Home" with no centering and no
+   shrinking, exactly like the original PC version. */
+function isMobileWordsView(){
+return window.innerWidth<=480;
+}
+
+/* the word every other word's "My" position is measured
+   against on mobile — change this if the reference word changes. */
+const WORDS_ANCHOR_REFERENCE="Happiness";
+
+/* these words anchor "My" off "Home" instead of the
+   reference word above, on mobile. */
+const WORDS_HOME_ANCHOR_WORDS=["Friend","Home","Angel","Peace"];
+
+/* how much side breathing room to always leave on very narrow
+   phones when deciding whether a word needs to shrink to fit */
+const WORDS_SIDE_MARGIN=16;
+
+/* current gap between "My" and the revealed word, read straight
+   from #wordRest's CSS margin-left — this automatically picks up
+   the tighter mobile gap set in the @media(max-width:480px) rule
+   above, so the JS math never falls out of sync with the CSS. */
+function getWordRestGap(){
+const rest=document.getElementById("wordRest");
+if(!rest){
+return 16;
+}
+return parseFloat(getComputedStyle(rest).marginLeft)||16;
+}
+
+/* computes and stores the fixed anchor(s) "My" sits at. */
+function positionWordMy(){
+
+const wordDisplay=document.getElementById("wordDisplay");
+if(!wordDisplay){
+return;
+}
+
+/* clear any per-word shrink applied earlier so the measurements
+   below are always taken against the natural, CSS-defined size —
+   otherwise a previously shrunk size could feed back into itself. */
+wordDisplay.style.fontSize="";
+
+const cs=getComputedStyle(wordDisplay);
+const fontSpec=`${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+
+if(!positionWordMy.canvas){
+positionWordMy.canvas=document.createElement("canvas");
+}
+const ctx=positionWordMy.canvas.getContext("2d");
+ctx.font=fontSpec;
+
+const gap=getWordRestGap();
+const myWidth=ctx.measureText("My").width;
+const homeWidth=ctx.measureText("Home").width;
+const homeTotalWidth=myWidth+gap+homeWidth;
+const homeAnchorLeft=(window.innerWidth/2)-(homeTotalWidth/2);
+
+if(!isMobileWordsView()){
+/* desktop/PC: original, unchanged behavior — "My" is always
+   anchored off the "My Home" pair. */
+wordsFixedAnchorLeft=homeAnchorLeft;
+wordDisplay.style.left=wordsFixedAnchorLeft+"px";
+return;
+}
+
+/* mobile only, from here down */
+wordsHomeAnchorLeft=homeAnchorLeft;
+
+const referenceWidth=ctx.measureText(WORDS_ANCHOR_REFERENCE).width;
+const totalWidth=myWidth+gap+referenceWidth;
+wordsFixedAnchorLeft=(window.innerWidth/2)-(totalWidth/2);
+wordDisplay.style.left=wordsFixedAnchorLeft+"px";
+
+}
+
+/* positions (and, on mobile only, shrinks if needed) #wordDisplay
+   for the specific word about to be shown. On desktop/PC widths
+   this just re-applies the fixed "My Home" anchor, matching the
+   original, unchanged behavior. On mobile: Friend/Home/Angel/Peace
+   use the "My Home" anchor; other words no wider than the
+   "Happiness" reference keep "My" pinned at its usual fixed spot;
+   words wider than that get the whole "My <word>" pair centered
+   together instead, so nothing runs off the edge. As a last-resort
+   safety net, if even that pair is too wide for a very narrow
+   phone, the font shrinks just enough to fit. */
+function positionWordForDisplay(word){
+
+const wordDisplay=document.getElementById("wordDisplay");
+if(!wordDisplay||!word){
+return;
+}
+
+if(!isMobileWordsView()){
+/* desktop/PC: original, unchanged behavior — no centering,
+   no shrinking, always the fixed "My Home" anchor. */
+wordDisplay.style.fontSize="";
+wordDisplay.style.left=wordsFixedAnchorLeft+"px";
+return;
+}
+
+/* mobile only, from here down */
+wordDisplay.style.fontSize="";
+const cs=getComputedStyle(wordDisplay);
+const naturalPx=parseFloat(cs.fontSize);
+let fontSpec=`${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+
+if(!positionWordMy.canvas){
+positionWordMy.canvas=document.createElement("canvas");
+}
+const ctx=positionWordMy.canvas.getContext("2d");
+ctx.font=fontSpec;
+
+const isHomeAnchored=WORDS_HOME_ANCHOR_WORDS.indexOf(word)!==-1;
+const referenceWidth=ctx.measureText(WORDS_ANCHOR_REFERENCE).width;
+let myWidth=ctx.measureText("My").width;
+let wordWidth=ctx.measureText(word).width;
+
+const centerPair=!isHomeAnchored && wordWidth>referenceWidth;
+
+const gap=getWordRestGap();
+let totalWidth=myWidth+gap+wordWidth;
+const available=window.innerWidth-(WORDS_SIDE_MARGIN*2);
+
+if(totalWidth>available && totalWidth>0){
+const scale=Math.max(available/totalWidth,0.4);
+const shrunkPx=naturalPx*scale;
+wordDisplay.style.fontSize=shrunkPx+"px";
+fontSpec=`${cs.fontWeight} ${shrunkPx}px ${cs.fontFamily}`;
+ctx.font=fontSpec;
+myWidth=ctx.measureText("My").width;
+wordWidth=ctx.measureText(word).width;
+totalWidth=myWidth+gap+wordWidth;
+}
+
+if(isHomeAnchored){
+wordDisplay.style.left=wordsHomeAnchorLeft+"px";
+}else if(centerPair){
+wordDisplay.style.left=((window.innerWidth/2)-(totalWidth/2))+"px";
+}else{
+wordDisplay.style.left=wordsFixedAnchorLeft+"px";
+}
+
+}
+
+if(document.fonts&&document.fonts.ready){
+document.fonts.ready.then(positionWordMy);
+}else{
+positionWordMy();
+}
+window.addEventListener("resize",()=>{
+positionWordMy();
+if(currentDisplayedWord){
+positionWordForDisplay(currentDisplayedWord);
+}
+});
+
+
+
+function goToWords(){
+goToScene("wordsScene",startWordsSequence);
+}
+
+function goToWelcome(){
+if(isTransitioning){
+return;
+}
+const currentId=sceneHistory[sceneHistory.length-1];
+switchScene(currentId,"home");
+/* opens as a fresh page, not a step you can navigate back out of —
+   history is reset to just this scene instead of being pushed onto
+   the existing stack */
+sceneHistory=["home"];
+showBackButton();
+}
+
+function startWordsSequence(){
+wordsIndex=0;
+currentDisplayedWord="";
+positionWordMy();
+const rest=document.getElementById("wordRest");
+rest.classList.remove("show");
+rest.textContent="";
+
+/* pre-measure and pre-position the very first word now, while
+   it's still invisible (opacity 0), instead of waiting until
+   showWord() is about to fade it in. Doing this expensive layout
+   work (getComputedStyle + canvas measuring, possibly a font-size
+   change) right as the fade-in animation starts is what caused the
+   first word to visibly stutter — later words don't stutter
+   because by then the scene itself has already settled, so their
+   positioning work no longer competes with an active fade. */
+if(wordsList.length>0){
+positionWordForDisplay(wordsList[0]);
+}
+
+const wordsAudio=document.getElementById("wordsAudio");
+if(wordsAudio){
+wordsAudio.currentTime=0;
+wordsAudio.play().catch(()=>{
+/* autoplay can be blocked until the user interacts with
+   the page — safe to ignore, the rest of the sequence
+   still runs normally */
+});
+}
+
+showWord();
+}
+
+function showWord(){
+
+const rest=document.getElementById("wordRest");
+
+if(wordsIndex>=wordsList.length){
+currentDisplayedWord="";
+wordsTimer=setTimeout(()=>{
+goToScene("vaultScene");
+},500);
+return;
+}
+
+rest.classList.remove("show");
+
+wordsTimer=setTimeout(()=>{
+
+currentDisplayedWord=wordsList[wordsIndex];
+/* the first word was already measured and positioned up in
+   startWordsSequence, while still invisible — skip redoing that
+   heavy work right at the moment it fades in. Every later word
+   still gets positioned here as before. */
+if(wordsIndex!==0){
+positionWordForDisplay(currentDisplayedWord);
+}
+rest.textContent=currentDisplayedWord;
+
+requestAnimationFrame(()=>{
+rest.classList.add("show");
+});
+
+/* the very last word ("Little suriya") gets extra time on
+   screen before the sequence ends — every earlier word keeps
+   its normal 900ms pacing. */
+const isLastWord=wordsIndex===wordsList.length-1;
+wordsTimer=setTimeout(()=>{
+wordsIndex++;
+showWord();
+},isLastWord?1500:900);
+
+},150);
+
+}
+
+/* ==================================================
+   VAULT FOLDER NAVIGATION
+   ================================================== */
+
+function openStoryFolder(){
+goToScene("storyScene",paginateStory);
+}
+
+/* ---------- OUR STORY DIARY PAGINATION ---------- */
+let storyDiaryIndex=0;
+
+/* the raw diary text, pasted exactly as written — pagination below
+   is the only thing that decides where each page breaks, nothing
+   here is pre-split or reworded */
+const STORY_TEXT=`Na Orientation course pondy la pannen. Anga dha suriya va meet pannen. Athu 15 days nadakura course. Naanga mothama oru 2 times dha pesirupom periya interaction ethum illa. Evening ellam mudinchathum naanga boys oru 10 peru onna dha bus stand povom. 14th day apo dha therinchi avalum bus la dha poranu. Ava cudalore. Na cudalore poitu aprm panruti varanum. Cudalore ku eppavum en kuda 2 pasanga varuvanga. 15th day anniki ellarum mall poitu movies porathuku plan pannanga. Enaku anniki sema fever so na varlanu thaniya bus stand ku ponen. Bus la eruna, Suriya and Chandrika irunthanga (Rendu perum close friends school time la irunthe). Avunga Etho reason kaga mall ku polanu sonnanga. Bus free ah irunchu. Na thaniya oru seat la poi ukanten. Water bottle na eduthutu varla.. Thagama irunchu avunga kitta keten, thandhanga.. Na thanni kudichitu veetuku phone panni pesitu irunthen. Avunga etho methuva pesikuranga nu mattum therinchu.. Na phone pesi mudichathum avunga kuptu inga vanthu ukkarlam la nu sonnanga. Ennada ivan thaniya ukanthutu irukanu nenachangalo ennamo.. Aprm cudalore pora varaikum summa pesitu vanthom. Athoda mudinchii, na 1st batch eh itt join panten.. Suriya adhuku adutha batch la pona. Whatsapp group la bday wishes lam ellarum pannuvanga.. Apdi en bday annikum group la msg vanthutu irunchu.. Ana suriya enaku thaniya msg panni wish panna. Naanga number lam kuda save panni vachilla orientation apo. Itt la enaku nadanthu lam sonnen suriya avaluku nadantha experience la sonna. Avlothan.. athuku aprm suriya kitta entha oru contact um illa.
+
+	2 years aprm dhan na insta id create pannen. Orientation la therincha rendu pasangala follow pannen. Athunala Suriya id suggestion la kaatuchi. Enaku request kodukalama vendama nu oru yosanai ah irunthuchi nyabagam irukumo ennamonu.. Aprm neraiya vaati suggestion la vanthutu irunchi seri paravala nu suriya & chandrika ku request koduthen. Accept pantanga ana ethum pesikala nanga. Feb13 anniki na oru post potrunthen. Atha pathutu suriya enaku DM panna.. like epdi iruka life epdi pothunu. Konja neram chat pantu naane vela iruku aprm pesuren nu soltu convo stop panten.. Enaku normal ah ve intha maari romba neram chat panrathu oru maari irukum like namma avungala disturb panromo nu.. So athu naalaiye na ellartayum konja dhan pesuven. En birthday mudinchi one week aprm wish panna iniki dha un bday nu nenachen nu.. Aprm oru naal enaku msg panna eppa pathalum online laye iruka enna vishiyam apdinu keta.. Intha maari eppachum apo apo pesuvom. Oru naal evening apo msg suriya panna.. Office lam epdi iruku jolly ah pothanu keten. Suriya sonna like office friends engayachum kupta na poven ana na kupta yaarum engayum vara maatikuranga. Iniki kuda beach poganum pola irunchi ana kupta yaarume varla, na apdiye veetuku vanten. Enaku suriya apdi sonnathu oru maari irunchu.. Enna maari movies lam pudikum nu ketu.. Periya list potu movie suggestion koduthen. Ana ithu naal varaikum suriya athula oru padam paakala. 
+
+	Na vera oru insta account la enaku pudicha movies ku summa edit poduven. Apo 3 post tha irunchu athula… Apdi oru account irukunu yaarukum theriyathu en anna thavira. Ana ava kitta sonnen.. Athula oru post irukum, atha pathi suriya keta.. Antha vishiyam suba ku theriyum en school friend ku theriyum.. Vera yaartaiyum na sonnathu illa.. ana suriya kitta share pannanum pola irunchu full kathaiyum sonnen. Ithula irunthu adikadi causal ah pesa start pantom. 
+Oru naal ooruku vanthutu iruntha train la.. Summa chat pantu irunthom. Apo train la oru aal paakurathu oru maari iruku uncomfortable ah iruku nu sonna. Enaku suriya apdi sonnathum.. ava thaniya feel pandra kudathunu thonuchi.. Athunala neraiya ennanamo pesitu irunthom.. Romba naal na tourist family movie epo HD la varum nu wait pantu irunthen.. Correct ah anniki evening ott la vanthuchi.. Antha padatha vida suriya company kodukanum nu thonuchu.. 7to12 varaikum msg pannitu pesite irunthom suriya veetuku reach ara varaikum.. insta la msg pogalanu whatsapp la msg pantu irunthom. Antha day la irunthu dhan naanum suriya um romba close agitom. Ennoda ella kathaiyum suriya ku theriyum. 
+
+	Suriya solli tha na snapchat ulla ponen.. Snap la irukura orey oru contact suriya mattum dha.. Enaku athula onnu purila ana suriya kaga use pannen.. 
+
+	Na oru video panrunthen like people who hear all my stuffs nu.. suriya, en anna, en school friend surya aprm suba va tag panni podalam nu oru idea irunchu .. Suriya birthday vanthuchi seri itha vena upload panlam nu nenachen.. ana anniki atha upload panna suriya kaga nu mattum athu panna maari irukathunu podala.. Oru birthday wish panni story poten.. Athum story podalama illa kudathanu romba yosichi potathu.. Etho pathi pesitu irukum pothu na un friend ah illaya nu suriya keta.. Apo antha video va suriya ku anupiten.. aprm oru 3 days kazhichi atha insta la upload pannen
+
+	Next month surya ta call panni pesunen.. aprm sometimes pesipom.. Oru 2 months full ah na night 10mani ku tha phone edupen athum 1 hour.. suriya ta insta la msg panrathukaga mattum dhan..  1 or 2 days na ennikachum online varave illana next day eduthu patha irukura ella apps la irunthum suriya message panrupa… Enaku athelam puthusa irunchu because namma mela ivlo priority ethuku kaatanum na ethum perusa pannathu illaye nu thonum.. Then we began to share our daily things happening and all… 
+
+	Exam ku oru 1 week munnadi la irunthu seriya pesikala antha 10 maniku kuda exam kaga… oru paper mudinchathum anniki night 2 maniku thookam varla oru maari restless ah irunthen.. Enaku suriya presence apo irunthuchi.. Suriya kitta pesuna konjam better ah feel agum nu thonuchi.. Whatsapp la msg pannen… 2 mani suriya thoongitu irupa nu phone off pantu poiten aprm next day patha 2mins la suriya reply panruka.. Konja neram wait panniruntha apo pesirukalam.. Ana anniki suriya oda presence ah random feel anathu something she felt so close to me.
+
+	Last exam mudinchitu apdiye relative veetuku poitu vanthen phone veetlaye irunchi.. Veetuku oru 7 maniku vanthu phone edutha neraiya missed calls suriya ta irunthu.. Phone kaila eduthu rendu second agala call varuthu.. Nalla thitna phone edukalanu.. Enaku antha time la dhan therinchi like she gives importance to me.. Because na konja naal pesala exam naala ana last exam anniki mudinchirukum nu suriya notice panni enaku call panna.. Athum call avlo vaati try panruka
+
+
+	Na yaartayum share panna mudiyatha vishiyam ellam suriya kitta pesiruken… There are so many things that only suriya knows about me.. Suriya also shared many things but somehow she was a little hesitant on sharing somethings on the early days.. Its ok and i understand why and all, but I always worry that suriya shouldn't feel any uncomfortable around me. As days went by that little hesitation started to reduce.. Later a period of time i can sense that suriya was so comfortable in sharing literally everything.. 
+
+
+	En friend kuda kolli malai trip poirunthen.. Anga signal suthama silla.. One day trip dha.. Suriya va romba miss pannen.. Athuku munnadi na suriya kitta msg pannama lam irunthuruken.. Ana anniki full ah kaila phone irunthum avaloda text panna mudilanu oru maari irunchu.. 
+
+
+	Na movie edits lam eppayachum pannuven.. Athelam upload panrathuku munnadi suriya ku anupunen.. Ava ethachum suggestion tharuva… na caption ethum poda maaten.. Ana suriya poda solli solluva.. Enaku athelam varathu.. Aprm avale caption ready panni poda solluva.. Actually suriya ku intha maari edits lam pudikathu irunthalum enakaga ella videos um paathu solluva..
+
+	Feb 1 anniki veetuku variya nu suriya enna invite panna.. Orientation apo pathathu 2years aprm anniki dha suriya va paakuren.. Meet pannum pothum oru maari awkward ah irukumo nu nenachen.. Ana konjam kuda apdi illa.. Pala varasam therinchi person dha feel achi.. Suriya antha alavuku enna comfort ah vachikitta.. Avunga amma romba sweet ana person.. Suriya va anniki meet pannathu nalla irunchi… expect eh ethum pannama takkunu meet pannathu athu.. Its a nice day.. Tiffen sapten.. Neraiya pesunom maadiku ponom.. nalla irunchu..
+
+	En birthday anniki suriya periya paragraph type panni enaku anupcha.. special ah irunchu athu.. En school friend veetuku vanthu wish pannan… aprm oru shirt & tshirt gift panna un friend koduka sonanga aprm unaku call pannuvanga nu sonnan.. Enaku apove therinchi suriya thavira vera yaarum itha panruka maatanga nu.. Suriya ku msg anupcha onnu theriyatha maari nadicha aprm night dha sonna.. ava dhan en friend ah contact panni intha maari gift panna solli ketruka.. Actual ah antha time suriya oru exam ku prepare agitu iruntha apo ithelam plan panruka.. Yaarukum en birthday theriyathu.. enaku apove doubt vanthuchu epdi en friend ku ennoda bday theriyum nu.. Still evlo shirts irunthalum ava kodutha shirt enaku eppavum special.. 
+
+	Poga poga suriya kitta call pesurathu oru maari daily routine aiduchu.. Na neraiya polambiruken.. Neraiya pesirukom.. Suriya kitta dhan romba free ah feel panruken.. Ava antha alavuku enaku space koduthuruka.. Na normal ah ve romba boring ana person.. but she listens to whatever i say.
+
+	En result next week varum ava apo oorla iruka maatanu kovil ku polam nu kupta.. Veetuku poitu bell adicha yaarum varla.. kuptu paakuren.. Aprm call panren no response.. Seri thoongitu irupa nu na kelambi oru kadai la poi juice kudichitu irunthen.. Oru 15 mins aprm call panna.. Nenacha maari phone ah silent la potutu thoongita.. Rendu kovil ku ponom neraiya pesunom.. Anniki dha nanga romba neram time spend pannathu 3hours kitta irukum.. 
+
+	En phone problem aiduchu.. So thirumbavum suriya kitta 2 months pesala.. Exam date change agiruku.. Enta phone illaye enaku athu theriyumo nu.. en school friend ta solli en amma number ku msg panna solruka atha pathi… Exam mudichitu varum pothu suriya va poi pathen.. Antha 2 months suriya oda importance therinchu i missed her so much… Phone problem seri agala.. Insta password lam nyabagam illa.. So laptop la telegram msg pannom..
+
+	Suriya oru naal panruti vazhiya pogum pothu variyanu keta.. Avala bus ethi vida ponen bus eduka late achi so pesitu irunthom na suriya epo meet pannalum rendu chocolate vangitu poven ana anniki inonnu vanganum nu thonuchi ana vangala.. Suriya kitta onnu pathi sonnen.. Athu something special ah irunthuchi na solli mudichathum aprm crt ah bus kelambuchu..
+
+	After a week i decided not to have any contact with suriya for some reasons… i didnt tell her reason.. Eventhough she tried to contact me many times just to make me okay.. At one point i replied in a very harsh manner.. After a week she called my mother's number and said i know you told me not to contact you but now i am coming to panruti.. Will you come and see me just for this time only.. I wont disturb you again ever… i want to see you, please.. Na poi suriya pathen.. Na harsh ah sonnathala ava romba hurt agiruka.. She told so many things but ennala ethum solla mudila reason um solla mudila.. Suriya enaku handmade cards thantha.. Antha cards koduka dha ava villupuram vanthu panruti vazhiya vantha.. Athum ava chennai la kelambum pothe na varuvena illaya nu keta paravala.. Ana ava villupuram bus eritu dha enaku call panna variyanu.. Final ah porathuku munnadi sonna ethu naalum enta eppo sollanum pola irunthalum sollu.. Ella seekiram seri aidum..  I really tried not to cry in this, somehow i managed infront of her.. 
+
+	After somedays.. She mailed me about somethings and she had some health issue.. So i cant just ignore that mail.. I replied to it.. But something keeps me to check on her.. I mailed again at night asking about her health.. She said ok i am fine its getting late go to sleep.. Good night.. I know she was not okay.. And i cant able to let her in that situation.. I said its fine i am not getting sleep.. Tell me what happened.. She was in pain and alone.. She worried a lot.. I tried to divert her by sharing some videos i made.. She said something.. And that tells how lonely she felt on that time and She asked me about something else.. That made me so lost and confused.. I said sorry for that and i wont ever do.. Actually i misunderstand with another thing.. She got worried about my reply for that.. I cant even speak about that as she was already in pain… she tried to explain over the thing.. But at that time i was so restless.. Next day she asked to meet her.. First I refused to go because i dont know how to face her.. Then how can i say no to her she was already in pain so i went.. She bought me a badam milk and explained what she meant.. Then i told i have felt at those things.. She cleared the misunderstandings… and she got a little upset for how i can think of her like that and after that i consoled her.. We spoke and cleared our minds.. She is a gem.. She tried all these things just to settle me okay.. Finally she said ni ethuku pesa maatanu solranu enaku therla.. but na wait pantu irrupa en goutham kaga seekram va.. Suriya sonna antha rendu vartha 'en goutham'.. I will cherish forever that i got someone who really cares for me.
+
+
+Suriya evlo busy ah irunthalum whatever tough pain she gothroughed.. she gave me so much importance all the time.. She didnt have to do anything at all.. But she always checks me whether i am okay or not.. She cares for me.. Suriya enakaga neraiya vishiyam panruka.. Still enaku en suriya en life irukarthu surreal ah thonum sometimes.. Because na konjam kuda expect pannatha person athum expect pannatha time apo en life la enter ana.. Na ithu varaikum ivlo open ah yaarkittyum irunthathu illa suriya va thavira.. Enaku suriya ta mattum dha entha oru thayakamum illama pesa mudiyum.. She is my angel in life.. She has many people in her life.. But she gave more importance to me.. She is the only person worried about my absence.. She is not expressive to everyone… but she is always excited to share .. Till now i dont understand why she gives me this much attention.. I did nothing for her.. I am just lucky to have her in my life
+
+
+She is 5 months older than me but somehow over a time i can only see her like a little girl and feels to take care of her in all possible ways.. She is so mature and handle anything by herself but i want to look after like a baby.. Enaku suriya mela eppavum kovam vanthathu illa… how can i get angry at her face and voice
+
+
+Ava office friends pathilam neraiya polambuva.. like they are not treating her well.. Apolam enaku epdi irukum na like ennada ippadi patta oru thangatha hurt panringale.. Enaku konjam poramaiya irukum they get to see her everyday and being with her presence the whole day.. But they dont know her value.. 
+
+I cant tell what type of image of mine she have but i can say this one thing she matters more than she thinks she does… 
+
+	When days get harder suriya kept me safe around her.. And made every noise quieter.
+
+	Though how important she is to me.. I decided not to have any contact with her till something happens in my life.. Its way too tough for me without suriya..`;
+
+let storyPageCache=[];
+let storyPageCacheKey=null;
+
+/* builds a hidden clone of a .diaryPage so we can measure, with the
+   browser's real layout engine, exactly how much text fits — this is
+   what lets the same line-limit apply on any device, since it reads
+   the live font size / line height / column width instead of guessing */
+function getStoryMeasurer(){
+let m=document.getElementById("storyMeasurer");
+if(!m){
+m=document.createElement("div");
+m.id="storyMeasurer";
+m.className="diaryPage";
+m.style.position="absolute";
+m.style.visibility="hidden";
+m.style.pointerEvents="none";
+m.style.left="-9999px";
+m.style.top="0";
+m.style.display="flex";
+document.body.appendChild(m);
+}
+return m;
+}
+
+/* splits STORY_TEXT into pages of a fixed line count, the count being
+   however many lines currently fit the diary card on this screen —
+   pages break purely on that limit, never on sentence boundaries, and
+   every page gets the same limit */
+function paginateStory(){
+const pagesWrap=document.getElementById("storyDiaryPages");
+const dotsWrap=document.getElementById("storyDiaryDots");
+const dotsWrapTop=document.getElementById("storyDiaryDotsTop");
+if(!pagesWrap||!dotsWrap)return;
+
+const measurer=getStoryMeasurer();
+const colWidth=pagesWrap.clientWidth||pagesWrap.parentElement.clientWidth;
+if(!colWidth){
+requestAnimationFrame(paginateStory);
+return;
+}
+measurer.style.width=colWidth+"px";
+measurer.style.whiteSpace="pre-line";
+measurer.textContent="";
+
+const cs=getComputedStyle(measurer);
+let lineHeightPx=parseFloat(cs.lineHeight);
+if(!lineHeightPx||isNaN(lineHeightPx)){
+lineHeightPx=parseFloat(cs.fontSize)*1.9;
+}
+
+/* available height scales with the device's own viewport, capped so
+   it doesn't grow absurdly tall on large desktop screens — the exact
+   same rule runs for every page, so the per-page limit never changes
+   mid-story */
+const availableHeight=Math.min(window.innerHeight*0.78,1040);
+const linesPerPage=Math.max(4,Math.floor(availableHeight/lineHeightPx));
+const maxHeight=(linesPerPage*lineHeightPx)+1;
+
+/* lock the visible page area to this same capacity on every page —
+   page 1 sets the box size, and any page with less text simply
+   leaves the remaining space blank instead of shrinking the card */
+pagesWrap.style.minHeight=maxHeight+"px";
+
+/* re-opening the diary at the exact same screen size (the common
+   case — same device, no resize in between) doesn't need to redo
+   the pagination work at all; just redraw the already-computed
+   pages straight away with zero measuring, zero blank pause */
+const cacheKey=colWidth+"x"+maxHeight;
+if(storyPageCacheKey===cacheKey&&storyPageCache.length){
+renderStoryPages(storyPageCache,pagesWrap,dotsWrap,dotsWrapTop);
+return;
+}
+
+const tokens=STORY_TEXT.match(/\S+|\s+/g)||[];
+const pages=[];
+
+/* the diary text is long (thousands of words), and measuring
+   scrollHeight forces the browser to do a real, synchronous layout
+   pass — doing that after every single token, as the old version
+   did, meant thousands of forced layouts before the page could even
+   be drawn, which is what caused the visible blank pause when this
+   page opened. Instead, grow each page in bigger chunks and only
+   measure once per chunk; only when a chunk finally overflows do we
+   step back token-by-token through JUST that small chunk (not the
+   whole document) to find the exact, sentence-safe cut point. This
+   keeps the total number of forced layouts small no matter how long
+   the story text is. */
+const CHUNK=25;
+let i=0;
+
+/* true only when the first real content on this page is preceded,
+   in the ORIGINAL diary text, by a whitespace run containing a
+   newline (a real paragraph break) — or is the very start of the
+   text. This is what decides whether a page's opening line is a
+   genuine new paragraph (and should be indented) or just the
+   continuation of a paragraph that got split across a page break
+   (and should NOT be indented again). */
+function startsNewParagraphAt(idx){
+let k=idx;
+while(k<tokens.length&&/^\s+$/.test(tokens[k])){
+k++;
+}
+if(k<=0){
+return true;
+}
+const prev=tokens[k-1];
+return /^\s+$/.test(prev)&&prev.indexOf("\n")!==-1;
+}
+
+pageLoop:
+while(i<tokens.length){
+
+const pageStartsNewParagraph=startsNewParagraphAt(i);
+let current="";
+/* tracks the best available "safe" cut point inside the current
+   page — the point right after the most recent sentence-ending
+   punctuation — so a page break never has to land mid-sentence */
+let safeCutLen=0;
+let safeCutTokenIndex=-1;
+
+chunkLoop:
+while(true){
+
+if(i>=tokens.length){
+break chunkLoop;
+}
+
+const chunkEnd=Math.min(i+CHUNK,tokens.length);
+let chunkText="";
+for(let j=i;j<chunkEnd;j++){
+chunkText+=tokens[j];
+}
+
+measurer.textContent=current+chunkText;
+
+if(measurer.scrollHeight<=maxHeight){
+/* the whole chunk fits on this page — commit it in one go and
+   keep tracking sentence-end cut points as we go */
+for(let j=i;j<chunkEnd;j++){
+current+=tokens[j];
+if(!/^\s+$/.test(tokens[j])){
+const trimmed=tokens[j].replace(/\s+$/,"");
+if(/[.!?…]$/.test(trimmed)){
+safeCutLen=current.length;
+safeCutTokenIndex=j+1;
+}
+}
+}
+i=chunkEnd;
+continue chunkLoop;
+}
+
+/* this chunk overflowed the page — narrow down to the exact
+   token inside just this small chunk, instead of re-measuring
+   the whole document token by token */
+let cutMade=false;
+for(let j=i;j<chunkEnd;j++){
+const trial=current+tokens[j];
+measurer.textContent=trial;
+if(measurer.scrollHeight>maxHeight&&current.trim().length>0){
+let cutLen=current.length;
+let resumeIndex=j;
+/* only use the sentence-safe cut if it still keeps a reasonable
+   chunk of the page — otherwise fall back to the plain word-
+   boundary cut so pages don't end up tiny */
+if(safeCutTokenIndex>=0&&safeCutLen>=current.length*0.3){
+cutLen=safeCutLen;
+resumeIndex=safeCutTokenIndex;
+}
+pages.push({
+text:current.slice(0,cutLen).replace(/^\s+/,"").replace(/\s+$/,""),
+startsNewParagraph:pageStartsNewParagraph
+});
+i=resumeIndex;
+cutMade=true;
+break;
+}
+current=trial;
+if(!/^\s+$/.test(tokens[j])){
+const trimmed=tokens[j].replace(/\s+$/,"");
+if(/[.!?…]$/.test(trimmed)){
+safeCutLen=current.length;
+safeCutTokenIndex=j+1;
+}
+}
+}
+
+if(cutMade){
+continue pageLoop;
+}
+
+/* the chunk only crossed the limit right at its very last
+   character in a way the per-token check above didn't catch
+   (can happen when a chunk ends exactly at maxHeight) — treat
+   it as fitting and move on */
+i=chunkEnd;
+
+}
+
+if(current.trim().length>0){
+pages.push({
+text:current.replace(/^\s+/,"").replace(/\s+$/,""),
+startsNewParagraph:pageStartsNewParagraph
+});
+}
+
+}
+
+storyPageCache=pages;
+storyPageCacheKey=cacheKey;
+
+renderStoryPages(pages,pagesWrap,dotsWrap,dotsWrapTop);
+
+}
+
+function renderStoryPages(pages,pagesWrap,dotsWrap,dotsWrapTop){
+
+pagesWrap.innerHTML="";
+pages.forEach((page,idx)=>{
+const div=document.createElement("div");
+div.className="diaryPage"+(idx===0?" active":"");
+div.dataset.page=idx;
+
+/* split on paragraph breaks so every genuine paragraph on the
+   page gets its own indented first line — but the page's OWN
+   first paragraph only gets indented if it's actually the start
+   of a paragraph in the original diary text, not the continuation
+   of one that got split across a page break */
+const paragraphs=page.text.split(/\n+/).map(t=>t.trim()).filter(t=>t.length>0);
+if(!paragraphs.length){
+paragraphs.push(page.text);
+}
+paragraphs.forEach((paraText,paraIdx)=>{
+const p=document.createElement("p");
+const isFirst=paraIdx===0;
+p.className="diaryPageText"+((isFirst&&!page.startsNewParagraph)?" noIndent":"");
+p.textContent=paraText;
+div.appendChild(p);
+});
+
+pagesWrap.appendChild(div);
+});
+
+dotsWrap.innerHTML="";
+if(dotsWrapTop)dotsWrapTop.innerHTML="";
+pages.forEach((_,idx)=>{
+const btn=document.createElement("button");
+btn.className="diaryDot"+(idx===0?" active":"");
+btn.dataset.dot=idx;
+btn.setAttribute("onclick","storyDiaryGoTo("+idx+")");
+btn.setAttribute("aria-label","Page "+(idx+1));
+dotsWrap.appendChild(btn);
+if(dotsWrapTop){
+const btnTop=btn.cloneNode(true);
+dotsWrapTop.appendChild(btnTop);
+}
+});
+
+storyDiaryIndex=0;
+storyDiaryUpdateUI(pages.length);
+}
+
+let storyRepaginateTimer=null;
+function storyDiaryReset(){
+/* re-measure and rebuild pages fresh each time the story is opened,
+   and also on resize while it's open, so the line-per-page limit
+   always matches the current screen */
+requestAnimationFrame(paginateStory);
+}
+
+window.addEventListener("resize",function(){
+const scene=document.getElementById("storyScene");
+if(!scene||getComputedStyle(scene).display==="none")return;
+clearTimeout(storyRepaginateTimer);
+storyRepaginateTimer=setTimeout(paginateStory,200);
+});
+
+function storyDiaryNav(dir){
+const pages=document.querySelectorAll("#storyDiaryPages .diaryPage");
+if(!pages.length)return;
+const nextIndex=storyDiaryIndex+dir;
+if(nextIndex<0||nextIndex>=pages.length)return;
+pages[storyDiaryIndex].classList.remove("active");
+storyDiaryIndex=nextIndex;
+pages[storyDiaryIndex].classList.add("active");
+storyDiaryUpdateUI(pages.length);
+/* bring the reader back to the top of the whole page, not just
+   the top edge of the diary card, so the heading is visible too */
+const scene=document.getElementById("storyScene");
+if(scene){
+scene.scrollTo({top:0,behavior:"smooth"});
+}
+}
+
+function storyDiaryGoTo(index){
+const pages=document.querySelectorAll("#storyDiaryPages .diaryPage");
+if(!pages.length||index<0||index>=pages.length||index===storyDiaryIndex)return;
+pages[storyDiaryIndex].classList.remove("active");
+storyDiaryIndex=index;
+pages[storyDiaryIndex].classList.add("active");
+storyDiaryUpdateUI(pages.length);
+}
+
+/* ---------- MOBILE-ONLY: swipe to turn diary pages ----------
+   Lets a phone/touch user swipe left/right across the "Our Story"
+   card instead of only tapping the small arrow buttons. Only wired
+   up on touch-capable devices (touchstart never fires from a mouse),
+   so desktop/trackpad behaviour is completely unchanged. A swipe only
+   triggers a page turn once it's clearly more horizontal than vertical
+   and past a minimum distance, so normal vertical scrolling of the
+   page is never hijacked. */
+if(("ontouchstart" in window)||navigator.maxTouchPoints>0){
+(function(){
+const swipeTarget=document.getElementById("storyDiaryPages");
+if(!swipeTarget) return;
+let touchStartX=0,touchStartY=0;
+let dragging=false,locked=false;
+const MIN_DIST=40;
+
+function reset(){
+dragging=false;
+locked=false;
+}
+
+swipeTarget.addEventListener("touchstart",function(e){
+if(!e.touches||!e.touches.length)return;
+touchStartX=e.touches[0].clientX;
+touchStartY=e.touches[0].clientY;
+dragging=true;
+locked=false;
+},{passive:true});
+
+/* once a drag clearly commits to horizontal, actively claim it via
+   preventDefault so the browser can't switch to a vertical-scroll
+   gesture partway through (which would fire touchcancel instead of
+   touchend and silently drop the swipe). Vertical drags are left
+   completely alone so normal page scrolling still works. */
+swipeTarget.addEventListener("touchmove",function(e){
+if(!dragging||!e.touches||!e.touches.length)return;
+const dx=e.touches[0].clientX-touchStartX;
+const dy=e.touches[0].clientY-touchStartY;
+if(!locked&&(Math.abs(dx)>10||Math.abs(dy)>10)){
+locked=Math.abs(dx)>Math.abs(dy);
+}
+if(locked) e.preventDefault();
+},{passive:false});
+
+function finish(e){
+if(!dragging)return;
+const touch=(e.changedTouches&&e.changedTouches[0]);
+if(touch){
+const dx=touch.clientX-touchStartX;
+const dy=touch.clientY-touchStartY;
+if(Math.abs(dx)>=MIN_DIST&&Math.abs(dx)>Math.abs(dy)){
+storyDiaryNav(dx<0?1:-1);
+}
+}
+reset();
+}
+
+swipeTarget.addEventListener("touchend",finish,{passive:true});
+swipeTarget.addEventListener("touchcancel",finish,{passive:true});
+})();
+}
+
+function storyDiaryUpdateUI(total){
+const prevBtns=document.querySelectorAll(".diaryArrowPrev");
+const nextBtns=document.querySelectorAll(".diaryArrowNext");
+document.querySelectorAll(".diaryDots").forEach(container=>{
+const dots=container.querySelectorAll(".diaryDot");
+dots.forEach((d,i)=>d.classList.toggle("active",i===storyDiaryIndex));
+});
+prevBtns.forEach(b=>b.disabled=storyDiaryIndex===0);
+nextBtns.forEach(b=>b.disabled=storyDiaryIndex===total-1);
+}
+
+function openVideosFolder(){
+goToScene("videosScene");
+}
+
+function openMemoriesFolder(){
+goToScene("memoriesScene");
+}
+
+function backToVault(){
+
+const currentId=sceneHistory[sceneHistory.length-1];
+
+if(currentId==="storyScene"||currentId==="videosScene"||currentId==="memoriesScene"){
+goBack();
+}else{
+goToScene("vaultScene");
+}
+
+}
+
+/* ==================================================
+   AMBIENT FLOATING HEARTS (site-wide, paused on
+   the vault + folder scenes for a clean premium look)
+   ================================================== */
+
+function spawnAmbientHeart(){
+
+document.body.classList.toggle("ambient-off",isAmbientPaused());
+
+if(isAmbientPaused()){
+return;
+}
+
+const el=document.createElement("div");
+el.className="ambient-heart";
+
+const icons=["🎊","✨","🌙","🎉"];
+el.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+
+/* mobile only: narrower band hugging the true screen edges, plus
+   smaller/dimmer icons so they read as soft background texture
+   instead of crowding the message text. Desktop path unchanged. */
+if(window.innerWidth<=480){
+el.style.left=Math.random()<0.5?(Math.random()*12)+"vw":(88+Math.random()*12)+"vw";
+el.style.fontSize=(10+Math.random()*10)+"px";
+el.style.opacity=".10";
+}else{
+el.style.left=Math.random()<0.5?(Math.random()*16)+"vw":(84+Math.random()*16)+"vw";
+el.style.fontSize=(14+Math.random()*18)+"px";
+}
+el.style.top="105vh";
+
+const dur=14+Math.random()*10;
+el.style.animationDuration=dur+"s";
+
+document.body.appendChild(el);
+
+setTimeout(()=>{
+el.remove();
+},dur*1000);
+
+}
+
+setInterval(spawnAmbientHeart,1500);
+
+/* ==================================================
+   GALLERY LIGHTBOX
+   ================================================== */
+
+const galleryPhotos=[
+{src:"images/photo1.jpg",caption:"The day that became unforgettable 🤍"},
+{src:"images/photo2.jpg",caption:"Ipdi nalla pallu theriya sirichi pazhagu 😁"},
+{src:"images/photo3.jpg",caption:"Made my day💖 but inime ipdi theva illama selavu pannatha 😑"},
+{src:"images/photo4.jpg",caption:"Still... my favorite shirt ✨"},
+{src:"images/photo5.jpg",caption:"Na neraiya vaati athuku aprm anga poiruken 😌"},
+{src:"images/photo6.jpg",caption:"umm.. not a bad day"}
+];
+let currentLightboxIndex=0;
+
+function renderLightbox(){
+const photo=galleryPhotos[currentLightboxIndex];
+document.getElementById("lightboxImg").src=photo.src;
+document.getElementById("lightboxCaption").textContent=photo.caption;
+}
+
+function openLightbox(index){
+currentLightboxIndex=index;
+renderLightbox();
+document.getElementById("lightbox").style.display="flex";
+document.getElementById("backBtn").style.display="none";
+}
+
+function changeLightbox(direction){
+currentLightboxIndex=(currentLightboxIndex+direction+galleryPhotos.length)%galleryPhotos.length;
+renderLightbox();
+}
+
+function closeLightbox(){
+document.getElementById("lightbox").style.display="none";
+showBackButton();
+}
+
+document.addEventListener("keydown",function(e){
+if(document.getElementById("lightbox").style.display==="flex"){
+if(e.key==="ArrowLeft")changeLightbox(-1);
+if(e.key==="ArrowRight")changeLightbox(1);
+if(e.key==="Escape")closeLightbox();
+}
+});
+
+/* ==================================================
+   NEBULA STARFIELD (login/intro scene background only —
+   canvas itself is hidden via CSS unless body has the
+   "nebula-active" class, which switchScene() toggles)
+   ================================================== */
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+let w,h;
+
+function resize(){
+w=canvas.width=window.innerWidth;
+h=canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+const stars=[];
+const STAR_COUNT=500;
+
+for(let i=0;i<STAR_COUNT;i++){
+stars.push({
+x:Math.random()*w,
+y:Math.random()*h,
+radius:Math.random()*2+0.2,
+speed:Math.random()*0.25+0.05,
+alpha:Math.random(),
+twinkle:(Math.random()*0.02)+0.004
+});
+}
+
+let nebulaTime=0;
+
+function drawNebula(){
+
+const bg=ctx.createLinearGradient(0,0,0,h);
+bg.addColorStop(0,"#02030d");
+bg.addColorStop(1,"#000000");
+ctx.fillStyle=bg;
+ctx.fillRect(0,0,w,h);
+
+nebulaTime+=0.002;
+
+const blueA=ctx.createRadialGradient(
+w*0.25+Math.sin(nebulaTime)*80, h*0.30, 0,
+w*0.25+Math.sin(nebulaTime)*80, h*0.30, 450
+);
+blueA.addColorStop(0,"rgba(154,163,181,0.18)");
+blueA.addColorStop(1,"rgba(154,163,181,0)");
+ctx.fillStyle=blueA;
+ctx.fillRect(0,0,w,h);
+
+const blue=ctx.createRadialGradient(
+w*0.75+Math.cos(nebulaTime)*70, h*0.65, 0,
+w*0.75+Math.cos(nebulaTime)*70, h*0.65, 520
+);
+blue.addColorStop(0,"rgba(232,205,122,0.14)");
+blue.addColorStop(1,"rgba(232,205,122,0)");
+ctx.fillStyle=blue;
+ctx.fillRect(0,0,w,h);
+
+const blueC=ctx.createRadialGradient(
+w*0.55, h*0.18+Math.sin(nebulaTime*2)*40, 0,
+w*0.55, h*0.18+Math.sin(nebulaTime*2)*40, 360
+);
+blueC.addColorStop(0,"rgba(200,204,214,0.15)");
+blueC.addColorStop(1,"rgba(200,204,214,0)");
+ctx.fillStyle=blueC;
+ctx.fillRect(0,0,w,h);
+
+}
+
+function animate(){
+
+drawNebula();
+
+const paused=isAmbientPaused();
+const speedMultiplier=paused?0.4:1;
+
+for(const star of stars){
+
+star.y+=star.speed*speedMultiplier;
+
+if(star.y>h){
+star.y=0;
+star.x=Math.random()*w;
+}
+
+star.alpha+=star.twinkle;
+if(star.alpha>=1||star.alpha<=0.2){
+star.twinkle*=-1;
+}
+
+ctx.beginPath();
+ctx.arc(star.x,star.y,star.radius,0,Math.PI*2);
+ctx.fillStyle=`rgba(255,255,255,${star.alpha})`;
+ctx.fill();
+
+}
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+/* ==================================================
+   HOME -> ROSE SCENE
+   ================================================== */
+
+function goToRose(){
+const btn=document.getElementById("roseContinueBtn");
+const text=document.querySelector(".roseText");
+btn.style.visibility="hidden";
+goToScene("moonScene",()=>{
+const showBtn=()=>{
+btn.style.visibility="visible";
+};
+text.addEventListener("animationend",showBtn,{once:true});
+/* safety net in case animationend doesn't fire */
+setTimeout(showBtn,2500);
+});
+}
+
+/* ==================================================
+   ROSE SCENE -> LETTER SCENE
+   ================================================== */
+
+function showLetter(){
+goToScene("letterScene",startTyping);
+}
+
+const letter=`Suriya,
+June month unna neraiya hurt panten.. Sorry
+
+Kadaisiya meet panna day.... romba naal pesama anniki pesunathuku aprm, ni konjam relief aitanu thonuchi.. enaku athuve oru periya satisfaction ah irunchu ni ok nu...
+Antha last day la enaku oru closure irunchi.. athuku munnadi unna etho paathila vitu pona maariye irunthuchu..
+
+I keep holding on to the last time we met, while I pass these days. A part of me is always missing you.
+
+Ni en mela sema kovathula irupanu theriyum.. sorry
+
+Ni keta.. atleast telegram la anupura msg paaru reply kuda panna vendam nu.. ana na athaiyum konja naal aprm pakuratha stop panten oru sila reason kaga.. enaku theriyum ni neraiya msg anupirupa ana ennala paaka mudila
+Sorry if you ever needed me
+
+I keep on hurting you, sorry`;
+
+let position=0;
+let letterTypeTimeoutId=null;
+let letterScrollTargetSet=false;
+
+function startTyping(){
+
+const target=document.getElementById("typewriter");
+const scene=document.getElementById("letterScene");
+
+function type(){
+
+if(position<letter.length){
+target.innerHTML+=letter.charAt(position);
+position++;
+scene.scrollTo({
+top:scene.scrollHeight,
+behavior:"smooth"
+});
+letterTypeTimeoutId=setTimeout(type,22);
+}else{
+letterTypeTimeoutId=null;
+document.getElementById("nextBtn").style.visibility="visible";
+}
+
+}
+
+startSorryWords();
+type();
+
+}
+
+/* ==================================================
+   LETTER SCENE -> BACKGROUND "SORRY" WORDS
+   As soon as the letter starts typing out, the sorry
+   variants appear one by one, measured and placed so
+   they never overlap each other and never land on top
+   of the glass letter panel.
+   ================================================== */
+
+const sorryWords=["sorry","sorry!!","SORRY","Sorry...","sorryyy","I'm sorry","so sorry","sorry :(","i'm so sorry","sorry???","sorry..","Sorry."];
+let sorryWordIndex=0;
+let sorryWordTimeoutId=null;
+let sorryWordActive=false;
+let sorryPlacedRects=[];
+
+/* a mix of the fonts already loaded for the page, each paired with
+   a weight/style so every "sorry" reads a little differently —
+   some handwritten and soft, some stamped and heavy, etc. */
+const sorryFontStyles=[
+{family:"'Courier Prime',monospace",weight:"700",style:"normal"},
+{family:"'Dancing Script',cursive",weight:"700",style:"normal"},
+{family:"'Great Vibes',cursive",weight:"400",style:"normal"},
+{family:"'Cinzel',serif",weight:"600",style:"normal"},
+{family:"'Poppins',sans-serif",weight:"300",style:"italic"},
+{family:"'Crimson Pro',serif",weight:"600",style:"italic"},
+{family:"'Fraunces',serif",weight:"500",style:"normal"},
+{family:"'Cormorant Garamond',serif",weight:"500",style:"italic"}
+];
+
+/* measures the real pixel size a word will take up at a given
+   font size/family/weight/style, so placement can be checked for
+   overlap accurately */
+function measureSorryWord(word,fontSize,fontStyleDef){
+
+const measurer=document.createElement("div");
+measurer.style.position="fixed";
+measurer.style.left="-9999px";
+measurer.style.top="-9999px";
+measurer.style.whiteSpace="nowrap";
+measurer.style.fontFamily=fontStyleDef.family;
+measurer.style.fontWeight=fontStyleDef.weight;
+measurer.style.fontStyle=fontStyleDef.style;
+measurer.style.fontSize=fontSize+"px";
+measurer.textContent=word;
+document.body.appendChild(measurer);
+
+const width=measurer.offsetWidth;
+const height=measurer.offsetHeight;
+measurer.remove();
+
+return {width,height};
+
+}
+
+function sorryRectsOverlap(a,b,padding){
+return !(
+a.left+a.width+padding<b.left ||
+b.left+b.width+padding<a.left ||
+a.top+a.height+padding<b.top ||
+b.top+b.height+padding<a.top
+);
+}
+
+/* the glass letter panel's current on-screen box — words must
+   never be placed on top of it */
+function getLetterBoxRect(){
+
+const box=document.querySelector(".letterBox");
+if(!box){
+return null;
+}
+
+const rect=box.getBoundingClientRect();
+return {
+left:rect.left,
+top:rect.top,
+width:rect.width,
+height:rect.height
+};
+
+}
+
+/* tries several random spots and picks the first one that
+   doesn't collide with any word already placed on screen,
+   and doesn't fall on top of the glass letter panel.
+   Returns null if no clean spot could be found, rather than
+   forcing a placement that overlaps something. */
+function findSorrySpot(width,height,avoidRect){
+
+const margin=12;
+const padding=20;
+const avoidPadding=42;
+const maxLeft=Math.max(margin,window.innerWidth-width-margin);
+const maxTop=Math.max(margin,window.innerHeight-height-margin);
+
+for(let attempt=0;attempt<80;attempt++){
+
+const left=margin+Math.random()*(maxLeft-margin);
+const top=margin+Math.random()*(maxTop-margin);
+const rect={left,top,width,height};
+
+let overlaps=false;
+
+if(avoidRect&&sorryRectsOverlap(rect,avoidRect,avoidPadding)){
+overlaps=true;
+}
+
+if(!overlaps){
+for(let i=0;i<sorryPlacedRects.length;i++){
+if(sorryRectsOverlap(rect,sorryPlacedRects[i],padding)){
+overlaps=true;
+break;
+}
+}
+}
+
+if(!overlaps){
+return rect;
+}
+
+}
+
+return null;
+
+}
+
+function spawnSorryWord(){
+
+if(!sorryWordActive){
+return;
+}
+
+const layer=document.getElementById("sorryBgLayer");
+if(!layer){
+return;
+}
+
+if(sorryWordIndex>=sorryWords.length){
+sorryWordActive=false;
+sorryWordTimeoutId=null;
+return;
+}
+
+const word=sorryWords[sorryWordIndex];
+sorryWordIndex++;
+
+/* wide size range so the words don't feel same-sized/uniform */
+const baseFontSize=24+Math.random()*84;
+const fontStyleDef=sorryFontStyles[Math.floor(Math.random()*sorryFontStyles.length)];
+const rotation=-12+Math.random()*24;
+const rad=Math.abs(rotation)*Math.PI/180;
+const letterBoxRect=getLetterBoxRect();
+
+/* try the word at full size first; if there's no room for it
+   anywhere without overlapping another word or the glass panel,
+   shrink it and try again rather than ever forcing an overlap */
+const scales=[1,0.85,0.7,0.55,0.4];
+let spot=null;
+let size=null;
+let boxWidth=0;
+let boxHeight=0;
+let fontSize=baseFontSize;
+
+for(let i=0;i<scales.length;i++){
+
+fontSize=baseFontSize*scales[i];
+size=measureSorryWord(word,fontSize,fontStyleDef);
+
+/* true rotated bounding box (plus a small breathing-room
+   buffer) so the collision check matches what's actually
+   drawn on screen, not just the unrotated text box */
+boxWidth=Math.abs(size.width*Math.cos(rad))+Math.abs(size.height*Math.sin(rad))+34;
+boxHeight=Math.abs(size.width*Math.sin(rad))+Math.abs(size.height*Math.cos(rad))+34;
+
+spot=findSorrySpot(boxWidth,boxHeight,letterBoxRect);
+if(spot){
+break;
+}
+
+}
+
+/* still nothing clear even at the smallest size — skip this
+   word this round rather than overlap something */
+if(!spot){
+if(sorryWordIndex<sorryWords.length){
+sorryWordTimeoutId=setTimeout(spawnSorryWord,550);
+}else{
+sorryWordTimeoutId=null;
+}
+return;
+}
+
+sorryPlacedRects.push(spot);
+
+const el=document.createElement("div");
+el.className="sorryBgWord";
+el.textContent=word;
+el.style.fontSize=fontSize+"px";
+el.style.fontFamily=fontStyleDef.family;
+el.style.fontWeight=fontStyleDef.weight;
+el.style.fontStyle=fontStyleDef.style;
+
+/* kept faint, but since words now stay clear of the glass panel
+   entirely, they can read a touch stronger out in the open */
+const alpha=(0.05+Math.random()*0.06).toFixed(3);
+el.style.color=`rgba(255,255,255,${alpha})`;
+
+el.style.left=(spot.left+(boxWidth-size.width)/2)+"px";
+el.style.top=(spot.top+(boxHeight-size.height)/2)+"px";
+el.style.setProperty("--baseRot",rotation+"deg");
+el.style.animationDuration=(5+Math.random()*4)+"s";
+el.style.animationDelay=(-Math.random()*8)+"s";
+
+layer.appendChild(el);
+
+/* fade in on the next frame, then stay put permanently —
+   words accumulate one by one instead of cycling away */
+requestAnimationFrame(()=>{
+el.style.opacity="1";
+});
+
+if(sorryWordIndex<sorryWords.length){
+sorryWordTimeoutId=setTimeout(spawnSorryWord,550);
+}else{
+sorryWordTimeoutId=null;
+}
+
+}
+
+function startSorryWords(){
+if(sorryWordActive){
+return;
+}
+sorryWordActive=true;
+sorryWordIndex=0;
+sorryPlacedRects=[];
+spawnSorryWord();
+}
+
+function stopSorryWords(){
+sorryWordActive=false;
+if(sorryWordTimeoutId!==null){
+clearTimeout(sorryWordTimeoutId);
+sorryWordTimeoutId=null;
+}
+sorryPlacedRects=[];
+const layer=document.getElementById("sorryBgLayer");
+if(layer){
+layer.innerHTML="";
+}
+}
+
+/* ==================================================
+   LETTER SCENE -> GALLERY SCENE
+   ================================================== */
+
+function nextScene(){
+stopSorryWords();
+goToScene("whatifScene");
+}
+
+/* ==================================================
+   GALLERY SCENE -> BIRTHDAY SCENE
+   ================================================== */
+
+function openMemory(){
+goToScene("birthdayScene",createBalloons);
+}
+
+/* ==================================================
+   REASON SCENE -> BIRTHDAY SCENE
+   ================================================== */
+
+function birthdayScene(){
+goToScene("birthdayScene",createBalloons);
+}
+
+function createBalloons(){
+
+const balloons=["🎈","🎈","🎈","🎈","🎈"];
+
+for(let i=0;i<30;i++){
+
+let b=document.createElement("div");
+b.className="balloon";
+b.innerHTML=balloons[Math.floor(Math.random()*balloons.length)];
+b.style.left=Math.random()*100+"vw";
+b.style.animationDuration=(6+Math.random()*5)+"s";
+document.body.appendChild(b);
+
+setTimeout(()=>{
+b.remove();
+},11000);
+
+}
+
+}
+
+/* ==================================================
+   BIRTHDAY SCENE -> FINAL SCENE
+   ================================================== */
+
+function celebrate(){
+
+for(let i=0;i<90;i++){
+
+let c=document.createElement("div");
+c.className="confetti";
+const items=["🎉","✨","🤍","🌸","🎊"];
+c.innerHTML=items[Math.floor(Math.random()*items.length)];
+c.style.left=Math.random()*100+"vw";
+c.style.top="-20px";
+c.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.remove();
+},6000);
+
+}
+
+celebrateTimeoutId=setTimeout(()=>{
+celebrateTimeoutId=null;
+goToScene("finalScene",showFinalMessage);
+},3500);
+
+}
+
+/* ==================================================
+   FINAL SCENE
+   ================================================== */
+
+const endingMessage=`Dear Suriya,
+
+I hope you always remember this:
+You matter.
+You are appreciated.
+You are deeply cared for..
+
+You always been kind to everyone.. it's rare and good to be like that
+but that doesn't mean you have to suffer for being nice to others.
+
+Never sacrifice your health, peace or body for someone else, especially who takes you for granted.
+No person is worth losing yourself over.
+
+Mathavanga enna solluvanganu ni neraiya yosipa..
+Atha pathilam konjam kuda worry pannikatha.. just live the way you wish.
+
+Eat well.. look after yourself.
+
+I'm grateful for:
+Every smile,
+Every conversation,
+Every memory we've shared..
+
+No matter what happens, you'll always be my Suriya
+
+Once again, Happy Birthday 🤍
+
+Suriya, itha pathi yaartayum share pannatha please...
+
+`;
+
+let endIndex=0;
+let finalWriteTimeoutId=null;
+
+function showFinalMessage(){
+
+const area=document.getElementById("finalText");
+
+finalMessageComplete=false;
+showBackButton();
+launchHearts();
+
+function write(){
+
+if(endIndex<endingMessage.length){
+area.innerHTML+=endingMessage.charAt(endIndex);
+endIndex++;
+
+finalWriteTimeoutId=setTimeout(write,28);
+}else{
+finalWriteTimeoutId=null;
+document.getElementById("signature").style.display="block";
+finalMessageComplete=true;
+showBackButton();
+}
+
+}
+
+write();
+
+}
+
+let heartsIntervalId=null;
+let celebrateTimeoutId=null;
+
+function launchHearts(){
+
+const emojiSet=["🎊","💐","✨","🎀","🎁","🎉"];
+let lastLeftEmoji=null;
+let lastRightEmoji=null;
+
+function pickEmoji(lastEmoji){
+let choice;
+do{
+choice=emojiSet[Math.floor(Math.random()*emojiSet.length)];
+}while(choice===lastEmoji && emojiSet.length>1);
+return choice;
+}
+
+function spawnHeart(onLeftSide){
+
+const emoji=pickEmoji(onLeftSide?lastLeftEmoji:lastRightEmoji);
+if(onLeftSide){
+lastLeftEmoji=emoji;
+}else{
+lastRightEmoji=emoji;
+}
+
+let h=document.createElement("div");
+h.className="fallingHeart";
+h.innerHTML=emoji;
+h.style.position="fixed";
+
+/* mobile only: narrower band hugging the true screen edges, plus
+   smaller/dimmer icons so they don't crowd the final message on
+   small screens. Desktop keeps the original 0-16vw/84-100vw band. */
+if(window.innerWidth<=480){
+const sideOffset=Math.random()*12;
+h.style.left=(onLeftSide?sideOffset:88+sideOffset)+"vw";
+h.style.fontSize=(14+Math.random()*12)+"px";
+h.style.opacity=".55";
+}else{
+const sideOffset=Math.random()*16;
+h.style.left=(onLeftSide?sideOffset:84+sideOffset)+"vw";
+h.style.fontSize=(20+Math.random()*25)+"px";
+}
+
+h.style.bottom="-40px";
+/* slower rise so the hearts drift up more gently */
+h.style.transition="12s linear";
+h.style.zIndex="1";
+h.style.pointerEvents="none";
+document.body.appendChild(h);
+
+setTimeout(()=>{
+h.style.bottom="110vh";
+h.style.transform="rotate(720deg)";
+},20);
+
+setTimeout(()=>{
+h.remove();
+},12000);
+
+}
+
+heartsIntervalId=setInterval(()=>{
+
+if(isAmbientPaused()){
+return;
+}
+
+/* one heart on each margin every tick — keeps a steady,
+   gap-free stream on both sides instead of randomly picking
+   just one side (which could leave a side empty for a while) */
+spawnHeart(true);
+spawnHeart(false);
+
+},700);
+
+}
+
+/* Remove any confetti / falling hearts currently on screen and
+   stop the falling-hearts interval — used when the user backs
+   out mid-animation. */
+function clearFallingEmojis(){
+
+if(heartsIntervalId!==null){
+clearInterval(heartsIntervalId);
+heartsIntervalId=null;
+}
+
+document.querySelectorAll(".confetti,.fallingHeart").forEach(el=>{
+el.remove();
+});
+
+}
+
+</script>
+
+</body>
+</html>
